@@ -143,6 +143,33 @@ Exc03/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/build
 .PHONY : Exc03/fast
 
+Chopper.o: Chopper.cpp.o
+
+.PHONY : Chopper.o
+
+# target to build an object file
+Chopper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Chopper.cpp.o
+.PHONY : Chopper.cpp.o
+
+Chopper.i: Chopper.cpp.i
+
+.PHONY : Chopper.i
+
+# target to preprocess a source file
+Chopper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Chopper.cpp.i
+.PHONY : Chopper.cpp.i
+
+Chopper.s: Chopper.cpp.s
+
+.PHONY : Chopper.s
+
+# target to generate assembly for a file
+Chopper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Chopper.cpp.s
+.PHONY : Chopper.cpp.s
+
 Controller.o: Controller.cpp.o
 
 .PHONY : Controller.o
@@ -251,6 +278,141 @@ Model.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Model.cpp.s
 .PHONY : Model.cpp.s
 
+Sim_obj.o: Sim_obj.cpp.o
+
+.PHONY : Sim_obj.o
+
+# target to build an object file
+Sim_obj.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Sim_obj.cpp.o
+.PHONY : Sim_obj.cpp.o
+
+Sim_obj.i: Sim_obj.cpp.i
+
+.PHONY : Sim_obj.i
+
+# target to preprocess a source file
+Sim_obj.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Sim_obj.cpp.i
+.PHONY : Sim_obj.cpp.i
+
+Sim_obj.s: Sim_obj.cpp.s
+
+.PHONY : Sim_obj.s
+
+# target to generate assembly for a file
+Sim_obj.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Sim_obj.cpp.s
+.PHONY : Sim_obj.cpp.s
+
+StateTrooper.o: StateTrooper.cpp.o
+
+.PHONY : StateTrooper.o
+
+# target to build an object file
+StateTrooper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/StateTrooper.cpp.o
+.PHONY : StateTrooper.cpp.o
+
+StateTrooper.i: StateTrooper.cpp.i
+
+.PHONY : StateTrooper.i
+
+# target to preprocess a source file
+StateTrooper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/StateTrooper.cpp.i
+.PHONY : StateTrooper.cpp.i
+
+StateTrooper.s: StateTrooper.cpp.s
+
+.PHONY : StateTrooper.s
+
+# target to generate assembly for a file
+StateTrooper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/StateTrooper.cpp.s
+.PHONY : StateTrooper.cpp.s
+
+Track_base.o: Track_base.cpp.o
+
+.PHONY : Track_base.o
+
+# target to build an object file
+Track_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Track_base.cpp.o
+.PHONY : Track_base.cpp.o
+
+Track_base.i: Track_base.cpp.i
+
+.PHONY : Track_base.i
+
+# target to preprocess a source file
+Track_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Track_base.cpp.i
+.PHONY : Track_base.cpp.i
+
+Track_base.s: Track_base.cpp.s
+
+.PHONY : Track_base.s
+
+# target to generate assembly for a file
+Track_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Track_base.cpp.s
+.PHONY : Track_base.cpp.s
+
+Truck.o: Truck.cpp.o
+
+.PHONY : Truck.o
+
+# target to build an object file
+Truck.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Truck.cpp.o
+.PHONY : Truck.cpp.o
+
+Truck.i: Truck.cpp.i
+
+.PHONY : Truck.i
+
+# target to preprocess a source file
+Truck.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Truck.cpp.i
+.PHONY : Truck.cpp.i
+
+Truck.s: Truck.cpp.s
+
+.PHONY : Truck.s
+
+# target to generate assembly for a file
+Truck.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Truck.cpp.s
+.PHONY : Truck.cpp.s
+
+Vehicle.o: Vehicle.cpp.o
+
+.PHONY : Vehicle.o
+
+# target to build an object file
+Vehicle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Vehicle.cpp.o
+.PHONY : Vehicle.cpp.o
+
+Vehicle.i: Vehicle.cpp.i
+
+.PHONY : Vehicle.i
+
+# target to preprocess a source file
+Vehicle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Vehicle.cpp.i
+.PHONY : Vehicle.cpp.i
+
+Vehicle.s: Vehicle.cpp.s
+
+.PHONY : Vehicle.s
+
+# target to generate assembly for a file
+Vehicle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Vehicle.cpp.s
+.PHONY : Vehicle.cpp.s
+
 View.o: View.cpp.o
 
 .PHONY : View.o
@@ -341,6 +503,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Exc03"
+	@echo "... Chopper.o"
+	@echo "... Chopper.i"
+	@echo "... Chopper.s"
 	@echo "... Controller.o"
 	@echo "... Controller.i"
 	@echo "... Controller.s"
@@ -353,6 +518,21 @@ help:
 	@echo "... Model.o"
 	@echo "... Model.i"
 	@echo "... Model.s"
+	@echo "... Sim_obj.o"
+	@echo "... Sim_obj.i"
+	@echo "... Sim_obj.s"
+	@echo "... StateTrooper.o"
+	@echo "... StateTrooper.i"
+	@echo "... StateTrooper.s"
+	@echo "... Track_base.o"
+	@echo "... Track_base.i"
+	@echo "... Track_base.s"
+	@echo "... Truck.o"
+	@echo "... Truck.i"
+	@echo "... Truck.s"
+	@echo "... Vehicle.o"
+	@echo "... Vehicle.i"
+	@echo "... Vehicle.s"
 	@echo "... View.o"
 	@echo "... View.i"
 	@echo "... View.s"

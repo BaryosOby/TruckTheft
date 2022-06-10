@@ -1,7 +1,3 @@
-//
-// Created by Itamar on 01/06/2022.
-//
-
 #ifndef CPPAD03_CONTROLLER_H
 #define CPPAD03_CONTROLLER_H
 #define MAX_NAME 12
@@ -10,7 +6,9 @@
 #include <fstream>
 #include <exception>
 #include <sstream>
+
 using namespace std;
+
 class Controller {
 public:
     vector<string> split(string& text,const string& delimiter = ",");

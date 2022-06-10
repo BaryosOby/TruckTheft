@@ -1,0 +1,3 @@
+/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir

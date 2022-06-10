@@ -6,14 +6,20 @@
 
 class Truck : public Vehicle {
 private:
-    uint crates_num;
-    weak_ptr<Warehouse> curr_warehouse;
+    uint crates_num{};
+    weak_ptr<Warehouse> next_warehouse;
+    double next_arrive{};
+    double next_depart{};
+    uint next_unload{};
+
     queue<weak_ptr<Warehouse>> warehouse_q;
     queue<uint> crates_q;
     queue<pair<double, double>> arrive_depart_q;
 
 public:
-    Truck(string &name, double x, double y) : Vehicle(name,x,y),crates_num(0){}
+    Truck(string &name, double x, double y) : Vehicle(name,x,y){
+        Vehicle::state = moving;
+    }
 
     const weak_ptr<Warehouse> &getCurrWarehouse() const;
 
@@ -52,11 +58,13 @@ public:
     void popArriveDepart(){
         arrive_depart_q.pop();
     }
-    void update() override;
+    void update(double general_time) override;
 
     void broadcast_status() override;
 
-    void unload(uint crates);
+    void unload();
+
+    void setSpeedByDriveTime();
 };
 
 

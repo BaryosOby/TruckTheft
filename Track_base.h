@@ -21,8 +21,16 @@ public:
         return course;
     }
 
-    void setCourse(double rhs) {
-        Track_base::course = rhs;
+    void setCourseByCords(double x, double y) {
+        Cartesian_vector cv;
+        cv.delta_x = x - location.x;
+        cv.delta_y = y - location.y;
+        Polar_vector pv(cv);
+        course = pv.theta;
+    }
+
+    void setCourseByDeg(double deg){
+        course = to_normal_directions(deg);
     }
 
     double getSpeed() const {
@@ -41,6 +49,10 @@ public:
         destination.setCord(x, y);
     }
 
+    void setDestination(const Point& p){
+        destination = p;
+    }
+
     const Point &getLocation() const {
         return location;
     }
@@ -48,6 +60,17 @@ public:
     void setLocation(double x, double y) {
         location.setCord(x, y);
     }
+
+    void drive(double time=1){
+        double distance = speed * time;
+        Polar_vector pv;
+        pv.r = distance;
+        pv.theta = course;
+        Cartesian_vector cv(pv);
+        location.setCord(cv.delta_x, cv.delta_y);
+    }
+
+
 };
 
 

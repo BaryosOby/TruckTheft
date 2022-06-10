@@ -17,7 +17,7 @@ public:
         Warehouse::inventory += crates;
     }
 
-    void update() override {}
+    void update(double general_time) override {}
 
     void broadcast_status() override {
         cout << "Warehouse " << Sim_obj::name << " at position ";

@@ -21,7 +21,7 @@ public:
 
     void setName(const string &rhs) { this->name = rhs; };
 
-    virtual void update() = 0;
+    virtual void update(double general_time) = 0;
 
     virtual void broadcast_status() = 0;
 

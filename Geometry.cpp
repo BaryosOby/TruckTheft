@@ -11,6 +11,12 @@ double to_degrees(double theta_r)
 {
 	return theta_r * 180.0 / pi;
 }
+
+// sets game directions to ordinary polar degrees.
+double to_normal_directions(double theta_d) {
+    return (90 - theta_d) < 0 ? (90 - theta_d + 360) : (90 - theta_d);
+}
+
 // construct a Cartesian_vector from a Polar_vector
 Cartesian_vector::Cartesian_vector(const Polar_vector& pv) {
 	delta_x = pv.r * cos(pv.theta);
@@ -63,7 +69,11 @@ void Point::print() const
 	cout << setprecision(2) << "(" << x << ", " << y << ")";
 }
 
-bool Point::operator==(const Point & rhs)
+bool Point::operator==(const Point & rhs) const
 {
 	return x == rhs.x && y == rhs.y;
+}
+
+double distance(const Point& a, const Point& b){
+    return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 }

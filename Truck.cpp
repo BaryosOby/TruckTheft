@@ -29,7 +29,7 @@ void Truck::update(double general_time) {
         state = stopped;
     }
 
-    // arriving to destination.
+    // arriving to position.
     if(state == moving && tb.getLocation() == tb.getDestination()){
         state = parked;
         unload();

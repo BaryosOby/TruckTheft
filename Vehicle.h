@@ -12,6 +12,13 @@ protected:
 public:
     Vehicle(string& name, double x, double y):Sim_obj(name, x, y), tb(x, y), state(stopped){}
 
+    virtual void course(double deg){
+        tb.setCourseByDeg(deg);
+    }
+    virtual void position(double  x, double y){
+        tb.setDestination(x, y);
+    }
+
     virtual void update(double general_time) override = 0;
     virtual void broadcast_status() = 0;
 

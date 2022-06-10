@@ -26,7 +26,7 @@ public:
         cv.delta_x = x - location.x;
         cv.delta_y = y - location.y;
         Polar_vector pv(cv);
-        course = pv.theta;
+        course = to_degrees(pv.theta);
     }
 
     void setCourseByDeg(double deg){
@@ -47,10 +47,12 @@ public:
 
     void setDestination(double x, double y) {
         destination.setCord(x, y);
+        setCourseByCords(destination.x, destination.y);
     }
 
     void setDestination(const Point& p){
         destination = p;
+        setCourseByCords(destination.x, destination.y);
     }
 
     const Point &getLocation() const {
@@ -74,4 +76,4 @@ public:
 };
 
 
-#endif //CPPAD03_TRACK_BASE_H
+#endif

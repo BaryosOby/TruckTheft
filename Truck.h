@@ -21,6 +21,9 @@ public:
         Vehicle::state = moving;
     }
 
+    void course(double deg) override{} // doing nothing in truck
+    void position(double x, double y) override{} // doing nothing in truck
+
     const weak_ptr<Warehouse> &getCurrWarehouse() const;
 
     void setCurrWarehouse(const weak_ptr<Warehouse> &currWarehouse);
@@ -65,6 +68,8 @@ public:
     void unload();
 
     void setSpeedByDriveTime();
+
+    //TODO defend()
 };
 
 

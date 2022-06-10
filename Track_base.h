@@ -15,7 +15,7 @@ private:
     Point location;
 public:
 
-    Track_base(double c, double s, double xD, double, double yD, double xL, double yL) : course(c), speed(s), destination(xD,yD), location(xL,yL){}
+    Track_base(double s, double x, double y) : speed(s), location(x, y) {}
 
     double getCourse() const {
         return course;

@@ -224,33 +224,6 @@ Geometry.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Geometry.cpp.s
 .PHONY : Geometry.cpp.s
 
-Graph.o: Graph.cpp.o
-
-.PHONY : Graph.o
-
-# target to build an object file
-Graph.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Graph.cpp.o
-.PHONY : Graph.cpp.o
-
-Graph.i: Graph.cpp.i
-
-.PHONY : Graph.i
-
-# target to preprocess a source file
-Graph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Graph.cpp.i
-.PHONY : Graph.cpp.i
-
-Graph.s: Graph.cpp.s
-
-.PHONY : Graph.s
-
-# target to generate assembly for a file
-Graph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Graph.cpp.s
-.PHONY : Graph.cpp.s
-
 Model.o: Model.cpp.o
 
 .PHONY : Model.o
@@ -512,9 +485,6 @@ help:
 	@echo "... Geometry.o"
 	@echo "... Geometry.i"
 	@echo "... Geometry.s"
-	@echo "... Graph.o"
-	@echo "... Graph.i"
-	@echo "... Graph.s"
 	@echo "... Model.o"
 	@echo "... Model.i"
 	@echo "... Model.s"

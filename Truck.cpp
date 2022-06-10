@@ -16,17 +16,13 @@ const queue<weak_ptr<Warehouse>> &Truck::getWarehouseQ() const {
     return warehouse_q;
 }
 
-void Truck::setWarehouseQ(const queue<weak_ptr<Warehouse>> &warehouseQ) {
-    warehouse_q = warehouseQ;
-}
+
 
 const queue<pair<double, double>> &Truck::getArriveDepartQ() const {
     return arrive_depart_q;
 }
 
-void Truck::setArriveDepartQ(const queue<pair<double, double>> &arriveDepartQ) {
-    arrive_depart_q = arriveDepartQ;
-}
+
 
 void Truck::update() {
 
@@ -37,7 +33,8 @@ void Truck::broadcast_status() {
 }
 
 void Truck::unload(uint crates) {
-
+    crates_num -= crates;
+    curr_warehouse.lock()->setInventory(crates);
 }
 
 const weak_ptr<Warehouse> &Truck::getCurrWarehouse() const {
@@ -52,6 +49,3 @@ const queue<uint> &Truck::getCratesQ() const {
     return crates_q;
 }
 
-void Truck::setCratesQ(const queue<uint> &cratesQ) {
-    crates_q = cratesQ;
-}

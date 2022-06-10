@@ -11,6 +11,10 @@ typedef struct Point {
 	Point(double x, double y);
 	Point();
 	void print() const;
+	void setCord(double x0, double y0){
+	    x = x0;
+	    y = y0;
+	}
 	bool operator==(const Point& rhs);
 } Point;
 struct Polar_vector;

@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Chopper.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Chopper.h">
+			<Option target="Exc03"/>
+		</Unit>
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Controller.cpp">
 			<Option target="Exc03"/>
 		</Unit>
@@ -104,6 +110,36 @@
 			<Option target="Exc03"/>
 		</Unit>
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Model.h">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Sim_obj.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Sim_obj.h">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/StateTrooper.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/StateTrooper.h">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Track_base.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Track_base.h">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Truck.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Truck.h">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Vehicle.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Vehicle.h">
 			<Option target="Exc03"/>
 		</Unit>
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/View.cpp">

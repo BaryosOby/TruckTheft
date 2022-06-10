@@ -100,12 +100,6 @@
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Geometry.h">
 			<Option target="Exc03"/>
 		</Unit>
-		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Graph.cpp">
-			<Option target="Exc03"/>
-		</Unit>
-		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Graph.h">
-			<Option target="Exc03"/>
-		</Unit>
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Model.cpp">
 			<Option target="Exc03"/>
 		</Unit>

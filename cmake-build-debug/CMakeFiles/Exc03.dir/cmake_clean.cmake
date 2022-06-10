@@ -2,7 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Exc03.dir/Chopper.cpp.o"
   "CMakeFiles/Exc03.dir/Controller.cpp.o"
   "CMakeFiles/Exc03.dir/Geometry.cpp.o"
-  "CMakeFiles/Exc03.dir/Graph.cpp.o"
   "CMakeFiles/Exc03.dir/Model.cpp.o"
   "CMakeFiles/Exc03.dir/Sim_obj.cpp.o"
   "CMakeFiles/Exc03.dir/StateTrooper.cpp.o"

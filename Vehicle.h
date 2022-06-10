@@ -1,6 +1,5 @@
 #ifndef CPPAD03_VEHICLE_H
 #define CPPAD03_VEHICLE_H
-#include "Sim_obj.h"
 #include "Track_base.h"
 
 enum VehicleType {truck, chopper, trooper};
@@ -10,7 +9,7 @@ protected:
     Track_base tb;
 
 public:
-    Vehicle(string& name, double x, double y):Sim_obj(name, x, y){}
+    Vehicle(string& name, double x, double y):Sim_obj(name, x, y), tb(x, y){}
 
     virtual void update() override = 0;
     virtual void broadcast_status() = 0;

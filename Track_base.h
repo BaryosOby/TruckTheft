@@ -1,9 +1,8 @@
 
 #ifndef CPPAD03_TRACK_BASE_H
 #define CPPAD03_TRACK_BASE_H
-
 #include <vector>
-#include "Geometry.h"
+#include "Warehouse.h"
 
 using namespace std;
 
@@ -15,7 +14,8 @@ private:
     Point location;
 public:
 
-    Track_base(double s, double x, double y) : speed(s), location(x, y) {}
+    Track_base(double x, double y) :course(0), speed(0), destination(), location(x, y) {}
+    Track_base() :course(0), speed(0), destination(), location() {}
 
     double getCourse() const {
         return course;

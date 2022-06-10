@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "Geometry.h"
+#include <queue>
+#include <memory>
 
 using namespace std;
 

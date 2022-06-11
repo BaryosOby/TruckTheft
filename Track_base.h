@@ -67,7 +67,7 @@ public:
         double distance = speed * time;
         Polar_vector pv;
         pv.r = distance;
-        pv.theta = course;
+        pv.theta = to_radians(course);
         Cartesian_vector cv(pv);
         location.setCord(cv.delta_x, cv.delta_y);
     }

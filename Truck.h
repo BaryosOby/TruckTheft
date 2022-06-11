@@ -18,7 +18,7 @@ private:
 
 public:
     Truck(string &name, double x, double y) : Vehicle(name,x,y){
-        Vehicle::state = moving;
+        Vehicle::state = moving_dest;
     }
 
     void course(double deg) override{} // doing nothing in truck
@@ -65,12 +65,12 @@ public:
 
     void broadcast_status() override;
 
-    void unload();
+    void unload(); //TODO support load
 
     void setSpeedByDriveTime();
 
-    //TODO defend()
+
 };
 
 
-#endif //CPPAD03_TRUCK_H
+#endif

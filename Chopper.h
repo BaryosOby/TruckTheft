@@ -4,6 +4,9 @@
 
 #define SPEED_LIM 170.0
 #define MAX_R 20
+#define MIN_R 2
+
+class Truck;
 
 class Chopper : public Vehicle{
 private:
@@ -15,7 +18,7 @@ public:
     void setAttackRadius(int attackRadius);
 
     Chopper(string& name, double x, double y);
-    bool attack(const Vehicle& v);
+
     void course(double deg, double speed);
     void position(double  x, double y, double speed);
 
@@ -24,4 +27,4 @@ public:
 };
 
 
-#endif //CPPAD03_CHOPPER_H
+#endif

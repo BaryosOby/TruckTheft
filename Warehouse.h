@@ -21,7 +21,7 @@ public:
 
     void broadcast_status() override {
         cout << "Warehouse " << Sim_obj::name << " at position ";
-        Sim_obj::location.print();
+        Sim_obj::init_location.print();
         cout <<", Inventory: " << inventory << endl;
     }
 };

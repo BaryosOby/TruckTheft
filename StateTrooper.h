@@ -1,7 +1,3 @@
-//
-// Created by Itamar on 08/06/2022.
-//
-
 #ifndef CPPAD03_STATETROOPER_H
 #define CPPAD03_STATETROOPER_H
 
@@ -11,10 +7,10 @@
 class StateTrooper : public Vehicle {
 private:
     vector<pair<weak_ptr<Warehouse>,bool> > warehouses;
-    Warehouse &start_warehouse;
+    int warehouse_idx{};
+
 public:
-    StateTrooper(string &name, Warehouse &w) : Vehicle(name, w.getLocation().x, w.getLocation().y),
-                                               start_warehouse(w) {
+    StateTrooper(string &name, double x, double y) : Vehicle(name, x, y){
         Vehicle::state = stopped;
         tb.setSpeed(90);
     }
@@ -28,13 +24,12 @@ public:
         warehouses.push_back(p);
     }
 
-    Warehouse &getStartWarehouse() const {
-        return start_warehouse;
-    }
     void getClosestWarehouse();
 
+    // TODO support destination() from Model by position()
 
     void update(double general_time) override;
+    void broadcast_status() override;
 
 };
 

@@ -10,12 +10,12 @@ using namespace std;
 
 class Sim_obj {
 protected:
-    Point location;
+    Point init_location;
     string name;
 public:
-    const Point &getLocation() const{return location;};
+    const Point &getLocation() const{return init_location;};
 
-    void setLocation(double x, double y){location.setCord(x, y); };
+    void setLocation(double x, double y){init_location.setCord(x, y); };
 
     const string &getName() const{ return name;};
 
@@ -25,7 +25,7 @@ public:
 
     virtual void broadcast_status() = 0;
 
-    Sim_obj(string& name, double x, double y):location(x, y), name(name){}
+    Sim_obj(string& name, double x, double y): init_location(x, y), name(name){}
     
 };
 

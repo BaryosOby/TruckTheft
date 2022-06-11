@@ -30,7 +30,7 @@ void Truck::update(double general_time) {
     }
 
     // arriving to position.
-    if(state == moving && tb.getLocation() == tb.getDestination()){
+    if(state == moving_dest && tb.getLocation() == tb.getDestination()){
         state = parked;
         unload();
         next_warehouse = warehouse_q.front();
@@ -47,9 +47,9 @@ void Truck::update(double general_time) {
     // going to the next warehouse.
     if(state == parked && general_time - next_depart >= 0){
         time = general_time - next_depart;
-        state = moving;
+        state = moving_dest;
     }
-    if(state == moving){
+    if(state == moving_dest){
         drive(time);
     }
 
@@ -59,7 +59,7 @@ void Truck::broadcast_status() {
     // Truck Godzilla at (37.14, 10.00), Heading to Lille, Crates: 105
     cout << "Truck " << name << "at ";
     tb.getLocation().print();
-    if(state == moving){
+    if(state == moving_dest){
         cout << ", Heading to " << next_warehouse.lock()->getName();
     }
     cout << ", Crates: " << crates_num << endl;

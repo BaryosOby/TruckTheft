@@ -1,16 +1,49 @@
 #include "View.h"
 
 
-Point View::normalize(const Point &p) const {
-    int x = p.x / (100 * size);
-    int y = p.y / (100 * size);
-    Point r(x, y);
-    return r;
+Point View::checkRange(const Point &p) {
+    double x = p.x;
+    double y = p.y;
+    Point res = Point(UINT32_MAX, UINT32_MAX);
+    double min_x = pan.x * 100;
+    double min_y = pan.y * 100;
+    double max_x = min_x + 100 * size * zoom; // not size-1 because we take one more unit than the map border
+    double max_y = min_y + 100 * size * zoom; // not size-1 because we take one more unit than the map border
+    double y_index = pan.y;
+    double x_index = pan.x;
+    double next_x = min_x + 100 * zoom;
+    double next_y = min_y + 100 * zoom;
+    while (next_x <= max_x && next_y <= max_y) {
+        if (x >= min_x && x < next_x) {
+            res.x = x_index;
+        }
+        if (y >= min_y && y < next_y) {
+            res.y = y_index;
+        }
+        min_x = next_x;
+        min_y = next_y;
+        next_x += (100 * zoom);
+        next_y += (100 * zoom);
+        x_index += zoom;
+        y_index += zoom;
+    }
+    return res;
 }
 
-map<Point, string> &View::objects_in_range() {
-    double range_x = size * zoom + pan.x * zoom * 100;
-    return ;
+
+map<pair<double, double>, string> &View::objects_in_range() {
+    Point check_range;
+    string name;
+    for (const auto &obj: objects) {
+        check_range = checkRange(obj.lock()->getLocation());
+        if (check_range.x != UINT32_MAX && check_range.y != UINT32_MAX) {
+            name += obj.lock()->getName()[0];
+            name += obj.lock()->getName()[1];
+            obj_in_range.insert(pair<pair<double, double>, string>(make_pair(check_range.x, check_range.y), name));
+            name = "";
+        }
+    }
+    return obj_in_range;
 }
 
 const Point &View::getPan() const {
@@ -37,7 +70,7 @@ void View::setSize(int sze) {
     View::size = sze;
 }
 
-View::View():pan(DEF_PAN, DEF_PAN), zoom(DEF_SCALE), size(DEF_SIZE) {
+View::View() : pan(DEF_PAN, DEF_PAN), zoom(DEF_SCALE), size(DEF_SIZE) {
 }
 
 void View::pushObj(const shared_ptr<Sim_obj> &sp) {
@@ -49,6 +82,71 @@ void View::clear() {
 }
 
 void View::show() const {
+    cout << "Display size: " << size << ", scale: " << setprecision(2) << zoom << ", origin: ";
+    cout << "(" << setprecision(2) << pan.x << "," << setprecision(2) << pan.y << ")" << endl;
+    double curr_x = pan.x;
+    double curr_y = pan.y + ((size - 1) * zoom);
+    double max_range_x = pan.x + ((size - 1) * zoom);
+    double max_range_y = curr_y;
+    int toPrint = 0;
+    while (curr_y >= pan.y) {
+        print_y_interval(toPrint, max_range_y, curr_y); //print curr y location
+        while (curr_x <= max_range_x) {
+            auto p = pair<double, double>(curr_x, curr_y);
+            if (obj_in_range.find(p) != obj_in_range.end()) {
+                cout << obj_in_range.at(p) << " ";
+            } else {
+                cout << ".  ";
+            }
+            curr_x += zoom;
+        }
+        curr_x = pan.x;
+        curr_y -= zoom;
+        cout << endl;
+    }
+    print_x_interval(); //print curr x location
+}
 
+void View::fixPrint(double maxRange, double r) const {
+    // print number with spaces to align all numbers while printing map
+    stringstream ss;
+    string num, maxNum;
+    ss << r;
+    ss >> num;
+    ss.clear();
+    ss << maxRange;
+    ss >> maxNum;
+    uint spacesAmount = maxNum.size() - num.size();
+    while (spacesAmount > 0) {
+        cout << " ";
+        spacesAmount--;
+    }
+    cout << setprecision(2) << r;
+}
+
+void View::print_x_interval() const {
+    cout << " ";
+    int toPrint = 0;
+    double curr_x = pan.x;
+    for (int i = 0; i < size; ++i) {
+        if (toPrint % 4 == 0) {
+            cout << "  ";
+            cout << curr_x;
+            if (curr_x == pan.x) cout << " ";
+        }
+        cout << "  ";
+        curr_x += zoom;
+        toPrint++;
+    }
+}
+
+void View::print_y_interval(int &toPrint, double max_range_y, double curr_y) const {
+    if (toPrint % 4 == 0) {
+        fixPrint(max_range_y, curr_y);
+        cout << " ";
+    } else {
+        cout << "   ";
+    }
+    toPrint++;
 }
 

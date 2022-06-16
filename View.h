@@ -1,5 +1,6 @@
 #ifndef EXC03_VIEW_H
 #define EXC03_VIEW_H
+
 #include "VehicleFactory.h"
 #include "Warehouse.h"
 #include <map>
@@ -17,12 +18,20 @@ private:
     double zoom;
     int size;
     vector<weak_ptr<Sim_obj>> objects;
+    map<pair<double, double>, string> obj_in_range;
 
-    Point normalize(const Point& p) const;
-    map<Point, string>& objects_in_range();
+    Point checkRange(const Point &p);
+
+    void fixPrint(double maxRange,double r) const;
+
+    void print_x_interval() const;
+
+    void print_y_interval(int& toPrint,double max_range_y,double curr_y) const;
 
 public:
     View();
+
+    map<pair<double, double>, string> &objects_in_range();
 
     const Point &getPan() const;
 
@@ -36,7 +45,7 @@ public:
 
     void setSize(int size);
 
-    void pushObj(const shared_ptr<Sim_obj>& sp);
+    void pushObj(const shared_ptr<Sim_obj> &sp);
 
     void clear();
 

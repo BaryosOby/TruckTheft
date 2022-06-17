@@ -54,13 +54,19 @@ void Controller::validTruckLineSyntax(vector<string> &data, bool isFirst) {
 }
 
 //convert given string to a float
-double Controller::convertStringToFloat(string &number) {
+double Controller::convertStringToFloat(string &number, bool is_time) {
     replaceChar(number);
     stringstream toNum;
     double n;
     toNum << number;
     toNum >> n;
     toNum.clear();
+    if(is_time){
+        int int_n = (int) n;
+        double after_point = n - int_n;
+        after_point /= 0.6;
+        n = int_n + after_point;
+    }
     return n;
 }
 //replace ":" with "." to be a valid float
@@ -105,9 +111,9 @@ void Controller::parseTruck(string &file_name, fstream& file) {
             validTruckLineSyntax(v);
             auto ware = Model::getInstance().getWareByName(v[0]);
             t->pushWarehouse(ware);
-            double arrive = convertStringToFloat(v[1]);
-            double depart = convertStringToFloat(v[3]);
-            int crates = static_cast<int>(convertStringToFloat(v[2]));
+            double arrive = convertStringToFloat(v[1], true);
+            double depart = convertStringToFloat(v[3], true);
+            int crates = static_cast<int>(convertStringToFloat(v[2], false));
             auto p = pair<double, double>(arrive, depart);
             t->pushArriveDepart(p);
             t->pushCrates(crates);
@@ -149,8 +155,8 @@ void Controller::parseWarehouse(string &file_name, fstream &file){
             string y_str;
             v[1].erase(v[1].begin(), v[1].begin() + 1);
             v[2].erase(v[2].end() - 1, v[2].end());
-            double x = convertStringToFloat(v[1]);
-            double y = convertStringToFloat(v[2]);
+            double x = convertStringToFloat(v[1], false);
+            double y = convertStringToFloat(v[2], false);
             auto w = make_shared<Warehouse>(v[0], x, y, crates);
             Model::getInstance().pushObj(w);
         }

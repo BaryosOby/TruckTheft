@@ -42,7 +42,7 @@ public:
 
     void parseWarehouse(string& file_name, fstream& file);
 
-    double convertStringToFloat(string & number);
+    double convertStringToFloat(string &number, bool is_time = false);
 
     void replaceChar(string& str, const string& c = ".");
 

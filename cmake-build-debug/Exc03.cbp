@@ -136,6 +136,12 @@
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/Vehicle.h">
 			<Option target="Exc03"/>
 		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/VehicleFactory.cpp">
+			<Option target="Exc03"/>
+		</Unit>
+		<Unit filename="/home/baryos/Documents/C++_2/Exc03/VehicleFactory.h">
+			<Option target="Exc03"/>
+		</Unit>
 		<Unit filename="/home/baryos/Documents/C++_2/Exc03/View.cpp">
 			<Option target="Exc03"/>
 		</Unit>

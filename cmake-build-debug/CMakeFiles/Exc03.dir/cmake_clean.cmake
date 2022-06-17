@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Exc03.dir/Track_base.cpp.o"
   "CMakeFiles/Exc03.dir/Truck.cpp.o"
   "CMakeFiles/Exc03.dir/Vehicle.cpp.o"
+  "CMakeFiles/Exc03.dir/VehicleFactory.cpp.o"
   "CMakeFiles/Exc03.dir/View.cpp.o"
   "CMakeFiles/Exc03.dir/Warehouse.cpp.o"
   "CMakeFiles/Exc03.dir/main.cpp.o"

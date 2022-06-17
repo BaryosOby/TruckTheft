@@ -51,6 +51,17 @@ CMakeFiles/Exc03.dir/Vehicle.cpp.o: ../Vehicle.cpp
 CMakeFiles/Exc03.dir/Vehicle.cpp.o: ../Vehicle.h
 CMakeFiles/Exc03.dir/Vehicle.cpp.o: ../Warehouse.h
 
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Chopper.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Geometry.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Sim_obj.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../StateTrooper.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Track_base.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Truck.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Vehicle.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../VehicleFactory.cpp
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../VehicleFactory.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o: ../Warehouse.h
+
 CMakeFiles/Exc03.dir/View.cpp.o: ../View.cpp
 CMakeFiles/Exc03.dir/View.cpp.o: ../View.h
 

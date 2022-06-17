@@ -51,6 +51,17 @@ CMakeFiles/Exc03.dir/Vehicle.cpp.o
  /home/baryos/Documents/C++_2/Exc03/Vehicle.cpp
  /home/baryos/Documents/C++_2/Exc03/Vehicle.h
  /home/baryos/Documents/C++_2/Exc03/Warehouse.h
+CMakeFiles/Exc03.dir/VehicleFactory.cpp.o
+ /home/baryos/Documents/C++_2/Exc03/Chopper.h
+ /home/baryos/Documents/C++_2/Exc03/Geometry.h
+ /home/baryos/Documents/C++_2/Exc03/Sim_obj.h
+ /home/baryos/Documents/C++_2/Exc03/StateTrooper.h
+ /home/baryos/Documents/C++_2/Exc03/Track_base.h
+ /home/baryos/Documents/C++_2/Exc03/Truck.h
+ /home/baryos/Documents/C++_2/Exc03/Vehicle.h
+ /home/baryos/Documents/C++_2/Exc03/VehicleFactory.cpp
+ /home/baryos/Documents/C++_2/Exc03/VehicleFactory.h
+ /home/baryos/Documents/C++_2/Exc03/Warehouse.h
 CMakeFiles/Exc03.dir/View.cpp.o
  /home/baryos/Documents/C++_2/Exc03/View.cpp
  /home/baryos/Documents/C++_2/Exc03/View.h

@@ -14,14 +14,6 @@ Chopper.h
 Vehicle.h
 /home/baryos/Documents/C++_2/Exc03/Vehicle.h
 
-/home/baryos/Documents/C++_2/Exc03/Geometry.cpp
-Geometry.h
-/home/baryos/Documents/C++_2/Exc03/Geometry.h
-cmath
--
-ctgmath
--
-
 /home/baryos/Documents/C++_2/Exc03/Geometry.h
 iostream
 -
@@ -39,6 +31,10 @@ vector
 -
 Geometry.h
 /home/baryos/Documents/C++_2/Exc03/Geometry.h
+queue
+-
+memory
+-
 
 /home/baryos/Documents/C++_2/Exc03/StateTrooper.cpp
 StateTrooper.h
@@ -65,8 +61,6 @@ Truck.h
 /home/baryos/Documents/C++_2/Exc03/Truck.h
 Vehicle.h
 /home/baryos/Documents/C++_2/Exc03/Vehicle.h
-queue
--
 
 /home/baryos/Documents/C++_2/Exc03/Vehicle.cpp
 Vehicle.h
@@ -75,6 +69,18 @@ Vehicle.h
 /home/baryos/Documents/C++_2/Exc03/Vehicle.h
 Track_base.h
 /home/baryos/Documents/C++_2/Exc03/Track_base.h
+
+/home/baryos/Documents/C++_2/Exc03/VehicleFactory.cpp
+VehicleFactory.h
+/home/baryos/Documents/C++_2/Exc03/VehicleFactory.h
+
+/home/baryos/Documents/C++_2/Exc03/VehicleFactory.h
+Truck.h
+/home/baryos/Documents/C++_2/Exc03/Truck.h
+Chopper.h
+/home/baryos/Documents/C++_2/Exc03/Chopper.h
+StateTrooper.h
+/home/baryos/Documents/C++_2/Exc03/StateTrooper.h
 
 /home/baryos/Documents/C++_2/Exc03/Warehouse.cpp
 Warehouse.h

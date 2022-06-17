@@ -2,7 +2,6 @@
 #define CPPAD03_VEHICLE_H
 #include "Track_base.h"
 
-enum VehicleType {truck, chopper, trooper};
 enum State {stopped, parked, off_road, moving_dest, moving_course};
 
 class Vehicle : public Sim_obj{

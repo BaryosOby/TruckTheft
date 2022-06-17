@@ -11,6 +11,8 @@
 #define DEF_SCALE 2.0
 #define DEF_PAN 0.0
 
+class Model;
+
 
 class View {
 private:

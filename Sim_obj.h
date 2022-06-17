@@ -8,6 +8,8 @@
 
 using namespace std;
 
+enum ObjType {truck, chopper, trooper, warehouse};
+
 class Sim_obj {
 protected:
     Point init_location;

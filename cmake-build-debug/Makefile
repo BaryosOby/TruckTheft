@@ -386,6 +386,33 @@ Vehicle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/Vehicle.cpp.s
 .PHONY : Vehicle.cpp.s
 
+VehicleFactory.o: VehicleFactory.cpp.o
+
+.PHONY : VehicleFactory.o
+
+# target to build an object file
+VehicleFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/VehicleFactory.cpp.o
+.PHONY : VehicleFactory.cpp.o
+
+VehicleFactory.i: VehicleFactory.cpp.i
+
+.PHONY : VehicleFactory.i
+
+# target to preprocess a source file
+VehicleFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/VehicleFactory.cpp.i
+.PHONY : VehicleFactory.cpp.i
+
+VehicleFactory.s: VehicleFactory.cpp.s
+
+.PHONY : VehicleFactory.s
+
+# target to generate assembly for a file
+VehicleFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exc03.dir/build.make CMakeFiles/Exc03.dir/VehicleFactory.cpp.s
+.PHONY : VehicleFactory.cpp.s
+
 View.o: View.cpp.o
 
 .PHONY : View.o
@@ -503,6 +530,9 @@ help:
 	@echo "... Vehicle.o"
 	@echo "... Vehicle.i"
 	@echo "... Vehicle.s"
+	@echo "... VehicleFactory.o"
+	@echo "... VehicleFactory.i"
+	@echo "... VehicleFactory.s"
 	@echo "... View.o"
 	@echo "... View.i"
 	@echo "... View.s"

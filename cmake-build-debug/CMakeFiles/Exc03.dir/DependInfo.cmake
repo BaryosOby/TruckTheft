@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/baryos/Documents/C++_2/Exc03/Track_base.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/Track_base.cpp.o"
   "/home/baryos/Documents/C++_2/Exc03/Truck.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/Truck.cpp.o"
   "/home/baryos/Documents/C++_2/Exc03/Vehicle.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/Vehicle.cpp.o"
+  "/home/baryos/Documents/C++_2/Exc03/VehicleFactory.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/VehicleFactory.cpp.o"
   "/home/baryos/Documents/C++_2/Exc03/View.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/View.cpp.o"
   "/home/baryos/Documents/C++_2/Exc03/Warehouse.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/Warehouse.cpp.o"
   "/home/baryos/Documents/C++_2/Exc03/main.cpp" "/home/baryos/Documents/C++_2/Exc03/cmake-build-debug/CMakeFiles/Exc03.dir/main.cpp.o"

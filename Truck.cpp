@@ -1,14 +1,10 @@
-//
-// Created by Itamar on 08/06/2022.
-//
-
 #include "Truck.h"
 
-uint Truck::getCratesNum() const {
+int Truck::getCratesNum() const {
     return crates_num;
 }
 
-void Truck::setCratesNum(uint cratesNum) {
+void Truck::setCratesNum(int cratesNum) {
     crates_num = cratesNum;
 }
 
@@ -33,13 +29,7 @@ void Truck::update(double general_time) {
     if(state == moving_dest && tb.getLocation() == tb.getDestination()){
         state = parked;
         unload();
-        next_warehouse = warehouse_q.front();
-        warehouse_q.pop();
-        next_arrive = arrive_depart_q.front().first;
-        next_depart = arrive_depart_q.front().second;
-        arrive_depart_q.pop();
-        next_unload = crates_q.front();
-        crates_q.pop();
+        setNextWarehouse();
         setSpeedByDriveTime();
         tb.setDestination(next_warehouse.lock()->getLocation());
     }
@@ -74,11 +64,17 @@ const weak_ptr<Warehouse> &Truck::getCurrWarehouse() const {
     return next_warehouse;
 }
 
-void Truck::setCurrWarehouse(const weak_ptr<Warehouse> &currWarehouse) {
-    next_warehouse = currWarehouse;
+void Truck::setNextWarehouse() {
+    next_warehouse = warehouse_q.front();
+    warehouse_q.pop();
+    next_arrive = arrive_depart_q.front().first;
+    next_depart = arrive_depart_q.front().second;
+    arrive_depart_q.pop();
+    next_unload = crates_q.front();
+    crates_q.pop();
 }
 
-const queue<uint> &Truck::getCratesQ() const {
+const queue<int> &Truck::getCratesQ() const {
     return crates_q;
 }
 

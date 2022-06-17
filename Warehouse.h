@@ -4,16 +4,16 @@
 
 class Warehouse: public Sim_obj{
 private:
-    uint inventory;
+    int inventory;
 
 public:
-    Warehouse(string& name, double x, double y, uint init=0):Sim_obj(name, x, y), inventory(init){}
+    Warehouse(string& name, double x, double y, int init=0):Sim_obj(name, x, y), inventory(init){}
 
-    uint getInventory() const {
+    int getInventory() const {
         return inventory;
     }
 
-    void setInventory(uint crates) {
+    void setInventory(int crates) {
         Warehouse::inventory += crates;
     }
 
@@ -24,6 +24,8 @@ public:
         Sim_obj::init_location.print();
         cout <<", Inventory: " << inventory << endl;
     }
+
+    void stop() override {}
 };
 
 

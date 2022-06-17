@@ -12,7 +12,7 @@ private:
 public:
     StateTrooper(string &name, double x, double y) : Vehicle(name, x, y){
         Vehicle::state = stopped;
-        tb.setSpeed(90);
+        tb.setSpeed(0.9);
     }
 
     const vector<pair<weak_ptr<Warehouse>, bool>> &getWarehouses() const {
@@ -26,12 +26,10 @@ public:
 
     void getClosestWarehouse();
 
-    // TODO support destination() from Model by position()
-
     void update(double general_time) override;
     void broadcast_status() override;
 
 };
 
 
-#endif //CPPAD03_STATETROOPER_H
+#endif

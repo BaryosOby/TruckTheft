@@ -6,14 +6,14 @@
 
 class Truck : public Vehicle {
 private:
-    uint crates_num{};
+    int crates_num{};
     weak_ptr<Warehouse> next_warehouse;
     double next_arrive{};
     double next_depart{};
-    uint next_unload{};
+    int next_unload{};
 
     queue<weak_ptr<Warehouse>> warehouse_q;
-    queue<uint> crates_q;
+    queue<int> crates_q;
     queue<pair<double, double>> arrive_depart_q;
 
 public:
@@ -26,21 +26,21 @@ public:
 
     const weak_ptr<Warehouse> &getCurrWarehouse() const;
 
-    void setCurrWarehouse(const weak_ptr<Warehouse> &currWarehouse);
+    void setNextWarehouse();
 
-    const queue<uint> &getCratesQ() const;
+    const queue<int> &getCratesQ() const;
 
    // void setCratesQ(const queue<uint> &cratesQ);
-    void pushCrates(uint & crates){
+    void pushCrates(int crates){
         crates_q.push(crates);
     }
     void popCrates(){
         crates_q.pop();
     }
 
-    uint getCratesNum() const;
+    int getCratesNum() const;
 
-    void setCratesNum(uint cratesNum);
+    void setCratesNum(int cratesNum);
 
     const queue<weak_ptr<Warehouse>> &getWarehouseQ() const;
 
@@ -55,7 +55,7 @@ public:
     const queue<pair<double, double>> &getArriveDepartQ() const;
 
    // void setArriveDepartQ(const queue<pair<double, double>> &arriveDepartQ);
-    void pushArriveDepart(pair<double, double>& p){
+    void pushArriveDepart(pair<double, double> &p){
         arrive_depart_q.push(p);
     }
     void popArriveDepart(){
@@ -65,7 +65,7 @@ public:
 
     void broadcast_status() override;
 
-    void unload(); //TODO support load
+    void unload();
 
     void setSpeedByDriveTime();
 

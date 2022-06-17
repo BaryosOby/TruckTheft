@@ -27,7 +27,7 @@ public:
         tb.drive(time);
     }
 
-    bool check_radius(Point p, int radius) const{
+    bool check_radius(Point p, double radius) const{
         double delta_x = abs(tb.getLocation().x - p.x);
         double delta_y = abs(tb.getLocation().y - p.y);
         if(delta_x > radius || delta_y > radius){
@@ -42,6 +42,10 @@ public:
 
     void setState(State st) {
         Vehicle::state = st;
+    }
+
+    void stop() override{
+        state = stopped;
     }
 
 };

@@ -28,6 +28,8 @@ public:
     virtual void broadcast_status() = 0;
 
     Sim_obj(string& name, double x, double y): init_location(x, y), name(name){}
+
+    virtual void stop() = 0;
     
 };
 

@@ -2,20 +2,20 @@
 #define CPPAD03_CHOPPER_H
 #include "Vehicle.h"
 
-#define SPEED_LIM 170.0
-#define MAX_R 20
-#define MIN_R 2
+#define SPEED_LIM 1.7
+#define MAX_R 0.2
+#define MIN_R 0.02
 
 class Truck;
 
 class Chopper : public Vehicle{
 private:
-    int attack_radius;
+    double attack_radius;
 
 public:
-    int getAttackRadius() const;
+    double getAttackRadius() const;
 
-    void setAttackRadius(int attackRadius);
+    void setAttackRadius(double attackRadius);
 
     Chopper(string& name, double x, double y);
 

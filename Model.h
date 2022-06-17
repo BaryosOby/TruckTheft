@@ -16,12 +16,32 @@ private:
 
     Model();
 
-    bool findObj(Sim_obj& obj);
+    bool findObj(Sim_obj& obj) const;
 
-    void attacks();
+    shared_ptr<Vehicle> getVehicleByName(const string& name);
 
+    bool findTroop(const Truck& t) const;
+
+//    void attacks();
+
+
+
+    double getTime() const;
 
 public:
+
+    class invalidNameException : public exception{
+    private:
+        string msg;
+    public:
+        explicit invalidNameException(const string& name){
+            msg = name + "not found";
+        }
+        const char * what() const noexcept override{
+            return msg.c_str();
+        }
+    };
+
 
     Model(Model&) = delete;
     Model(Model&&) = delete;
@@ -32,9 +52,19 @@ public:
 
     void update();
 
-    void pushObj(Sim_obj& obj);
+    void pushObj(const shared_ptr<Sim_obj>& obj);
 
     void attach(View& v);
+
+    void broadcast_status() const;
+
+    void attackByName(const string &chop_name, const string &truck_name);
+
+    void stop(const string& name);
+
+    weak_ptr<Warehouse> getWareByName(const string& name);
+
+    void setDestByName(const string &troop_name, const string &ware_name);
 
 };
 

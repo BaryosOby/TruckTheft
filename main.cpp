@@ -10,17 +10,17 @@ int main() {
     string s3 = "DDD";
     string s5 = "EEE";
     auto r1 = make_shared<Truck>(Truck(s, 0, 0));
-    auto r2 = make_shared<Truck>(Truck(s1, 1500, 2520));
-    auto r3 = make_shared<Truck>(Truck(s2, 18000, 520));
-    auto r4 = make_shared<Truck>(Truck(s3, 5001, 4700));
-    auto r5 = make_shared<Truck>(Truck(s5, 4999, 520));
+    auto r2 = make_shared<Truck>(Truck(s1, 15, 25.2));
+    auto r3 = make_shared<Truck>(Truck(s2, 18, 5.2));
+    auto r4 = make_shared<Truck>(Truck(s3, 0.5, 0.5));
+    auto r5 = make_shared<Truck>(Truck(s5, 49.99, 5.2));
     v.pushObj(r1);
     v.pushObj(r2);
     v.pushObj(r3);
     v.pushObj(r4);
     v.pushObj(r5);
-//    v.setPan(Point(2.5,3));
-//    v.setZoom(2.5);
+    //v.setPan(Point(2.5,3.5));
+    //v.setZoom(2.5);
     map<pair<double,double>, string> map = v.objects_in_range();
     v.show();
 

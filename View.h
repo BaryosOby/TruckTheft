@@ -18,9 +18,10 @@ private:
     double zoom;
     int size;
     vector<weak_ptr<Sim_obj>> objects;
+
     map<pair<double, double>, string> obj_in_range;
 
-    Point checkRange(const Point &p);
+    Point checkRange(const Point &p) const;
 
     void fixPrint(double maxRange,double r) const;
 

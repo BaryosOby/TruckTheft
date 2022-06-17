@@ -1,29 +1,29 @@
 #include "View.h"
 
 
-Point View::checkRange(const Point &p) {
+Point View::checkRange(const Point &p) const {
     double x = p.x;
     double y = p.y;
     Point res = Point(UINT32_MAX, UINT32_MAX);
-    double min_x = pan.x * 100;
-    double min_y = pan.y * 100;
-    double max_x = min_x + 100 * size * zoom; // not size-1 because we take one more unit than the map border
-    double max_y = min_y + 100 * size * zoom; // not size-1 because we take one more unit than the map border
+    double curr_x = pan.x;
+    double curr_y = pan.y;
+    double max_x = curr_x + (size * zoom); // not size-1 because we take one more unit than the map border
+    double max_y = curr_y + (size * zoom); // not size-1 because we take one more unit than the map border
     double y_index = pan.y;
     double x_index = pan.x;
-    double next_x = min_x + 100 * zoom;
-    double next_y = min_y + 100 * zoom;
+    double next_x = curr_x + zoom;
+    double next_y = curr_y + zoom;
     while (next_x <= max_x && next_y <= max_y) {
-        if (x >= min_x && x < next_x) {
+        if (x >= curr_x && x < next_x) {
             res.x = x_index;
         }
-        if (y >= min_y && y < next_y) {
+        if (y >= curr_y && y < next_y) {
             res.y = y_index;
         }
-        min_x = next_x;
-        min_y = next_y;
-        next_x += (100 * zoom);
-        next_y += (100 * zoom);
+        curr_x = next_x;
+        curr_y = next_y;
+        next_x += (zoom);
+        next_y += (zoom);
         x_index += zoom;
         y_index += zoom;
     }
@@ -32,6 +32,7 @@ Point View::checkRange(const Point &p) {
 
 
 map<pair<double, double>, string> &View::objects_in_range() {
+    obj_in_range.clear();
     Point check_range;
     string name;
     for (const auto &obj: objects) {

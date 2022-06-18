@@ -36,7 +36,12 @@ void View::objects_in_range() {
     Point check_range;
     string name;
     for (const auto &obj: objects) {
-        check_range = checkRange(obj.lock()->getLocation());
+        if(typeid(*(obj.lock())) == typeid(Warehouse)){
+            check_range = checkRange(obj.lock()->getInitLocation());
+        }
+        else{
+            check_range = checkRange(dynamic_pointer_cast<Vehicle>(obj.lock())->getLocation());
+        }
         if (check_range.x != UINT32_MAX && check_range.y != UINT32_MAX) {
             name += obj.lock()->getName()[0];
             name += obj.lock()->getName()[1];
@@ -126,6 +131,7 @@ void View::print_x_interval() const {
         curr_x += zoom;
         toPrint++;
     }
+    cout << endl;
 }
 
 void View::def_values() {

@@ -28,7 +28,7 @@ private:
 
     void erase_r(string & str , int size = 5);
     VehicleFactory vf;
-    shared_ptr<View> view; //TODO in ctor - attach
+    shared_ptr<View> view;
 
     vector<string> split(string& text,const string& delimiter = ",");
 
@@ -60,10 +60,39 @@ private:
 
     void vehicleCommand(vector<string>& data);
 
+    Point getPointFromString(string& x_st, string& y_st);
+
+    class notANumberException : public exception{
+    private:
+        string msg;
+    public:
+        explicit notANumberException(const string& name){
+            msg = name + " is not a valid number\n";
+        }
+        const char * what() const noexcept override{
+            return msg.c_str();
+        }
+    };
+
+    class invalidVehicleTypeException : public exception{
+
+    private:
+        string msg;
+    public:
+        explicit invalidVehicleTypeException(const string& name){
+            msg = name + " does not support this operation\n";
+        }
+        const char * what() const noexcept override{
+            return msg.c_str();
+        }
+    };
+
+
+
+
 public:
     Controller(int argc, char** argv);
-
-    [[noreturn]] void run();
+    void run();
 };
 
 

@@ -11,8 +11,8 @@ private:
     vector<weak_ptr<Chopper>> choppers;
     vector<weak_ptr<StateTrooper>> troops;
     vector<weak_ptr<Warehouse>> warehouses;
-    shared_ptr<View> view;
-    double time{};
+    weak_ptr<View> view;
+    double time;
 
     Model();
 
@@ -20,10 +20,6 @@ private:
 
 
     bool findTroop(const Truck& t) const;
-
-//    void attacks();
-
-
 
 
 public:
@@ -33,7 +29,7 @@ public:
         string msg;
     public:
         explicit invalidNameException(const string& name){
-            msg = name + "not found";
+            msg = name + " not found\n";
         }
         const char * what() const noexcept override{
             return msg.c_str();
@@ -59,13 +55,9 @@ public:
 
     void attackByName(const string &chop_name, const string &truck_name);
 
-    void stop(const string& name);
-
     weak_ptr<Warehouse> getWareByName(const string& name);
 
     shared_ptr<Vehicle> getVehicleByName(const string& name);
-
-    void setDestByName(const string &troop_name, const string &ware_name);
 
 };
 

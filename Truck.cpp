@@ -13,7 +13,6 @@ const queue<weak_ptr<Warehouse>> &Truck::getWarehouseQ() const {
 }
 
 
-
 const queue<pair<double, double>> &Truck::getArriveDepartQ() const {
     return arrive_depart_q;
 }
@@ -31,7 +30,7 @@ void Truck::update(double general_time) {
         unload();
         setNextWarehouse();
         setSpeedByDriveTime();
-        tb.setDestination(next_warehouse.lock()->getLocation());
+        tb.setDestination(next_warehouse.lock()->getInitLocation());
     }
     double time = 1;
     // going to the next warehouse.
@@ -40,6 +39,10 @@ void Truck::update(double general_time) {
         state = moving_dest;
     }
     if(state == moving_dest){
+        if(general_time == 0){
+            double dist = distance(tb.getLocation(), next_warehouse.lock()->getInitLocation());
+            double t = next_arrive;
+            tb.setSpeed(dist / t);        }
         drive(time);
     }
 
@@ -72,6 +75,7 @@ void Truck::setNextWarehouse() {
     arrive_depart_q.pop();
     next_unload = crates_q.front();
     crates_q.pop();
+    tb.setDestination(next_warehouse.lock()->getInitLocation());
 }
 
 const queue<int> &Truck::getCratesQ() const {
@@ -79,7 +83,7 @@ const queue<int> &Truck::getCratesQ() const {
 }
 
 void Truck::setSpeedByDriveTime() {
-    double dist = distance(next_warehouse.lock()->getLocation(), warehouse_q.front().lock()->getLocation());
+    double dist = distance(next_warehouse.lock()->getInitLocation(), warehouse_q.front().lock()->getInitLocation());
     double t = arrive_depart_q.front().first - next_depart;
     tb.setSpeed(dist / t);
 }

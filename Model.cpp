@@ -1,6 +1,6 @@
 #include "Model.h"
 
-Model::Model(){
+Model::Model(): time(0){
     string name = "Frankfurt";
     auto frank = make_shared<Warehouse>(name, 40, 10, 100000);
     objs.push_back(frank);
@@ -25,7 +25,6 @@ void Model::update() {
     for(const auto& ob : objs){
         ob->update(time);
     }
-//    attacks();
     time++;
 }
 
@@ -36,8 +35,8 @@ void Model::pushObj(const shared_ptr<Sim_obj>& obj) {
     }
 
     objs.push_back(obj);
-    if(view){
-        view->pushObj(obj);
+    if(view.lock() != nullptr){
+        view.lock()->pushObj(obj);
     }
 
     if(typeid(*obj) == typeid(Truck)){
@@ -49,7 +48,11 @@ void Model::pushObj(const shared_ptr<Sim_obj>& obj) {
     }
 
     if(typeid(*obj) == typeid(StateTrooper)){
-        troops.push_back(dynamic_pointer_cast<StateTrooper>(obj));
+        auto trop = dynamic_pointer_cast<StateTrooper>(obj);
+        troops.push_back(trop);
+        for(auto& w : warehouses){
+            trop->pushWarehouse(w);
+        }
     }
 
     if(typeid(*obj) == typeid(Warehouse)){
@@ -60,7 +63,7 @@ void Model::pushObj(const shared_ptr<Sim_obj>& obj) {
 void Model::attach(shared_ptr<View> &v) {
     view = v;
     for(const auto& ob : objs){
-        view->pushObj(ob);
+        view.lock()->pushObj(ob);
     }
 }
 
@@ -73,27 +76,6 @@ bool Model::findTroop(const Truck& t) const{
     return false;
 }
 
-
-//void Model::attacks(){
-//    for(const auto& chop : choppers){
-//        for(const auto& truck : trucks){
-//            bool attacked = chop.lock()->check_radius(truck.lock()->getLocation(), chop.lock()->getAttackRadius());
-//            if(attacked){
-//                if(findTroop(*truck.lock())){
-//                    chop.lock()->setAttackRadius(-0.01);
-//                }
-//                else{
-//                    chop.lock()->setAttackRadius(0.01);
-//                    truck.lock()->setState(off_road);
-//                    truck.lock()->setCratesNum(0);
-//                }
-//                chop.lock()->setState(stopped);
-//                break;
-//            }
-//
-//        }
-//    }
-//}
 
 void Model::broadcast_status() const{
     for(const auto& ob : objs){
@@ -137,28 +119,8 @@ shared_ptr<Vehicle> Model:: getVehicleByName(const string& name){
     return shared_ptr<Vehicle>();
 }
 
-void Model::stop(const string& name){
-    auto v = getVehicleByName(name);
-    if(v == nullptr){
-        throw invalidNameException(name);
-    }
-    v->stop();
 
-}
-
-void Model::setDestByName(const string &troop_name, const string &ware_name) {
-    auto troop = getVehicleByName(troop_name);
-    auto ware = getWareByName(ware_name);
-    if (troop == nullptr) {
-        throw invalidNameException(troop_name);
-    }
-    if (ware.lock() == nullptr) {
-        throw invalidNameException(ware_name);
-    }
-    troop->position(ware.lock()->getLocation().x, ware.lock()->getLocation().y);
-}
-
-weak_ptr<Warehouse> Model::getWareByName(const string &name) {
+weak_ptr<Warehouse> Model::getWareByName(const string &name) { //TODO combine with getV
     for(const auto& ob : warehouses){
         if(ob.lock()->getName() == name){
             return ob;

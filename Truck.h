@@ -30,7 +30,6 @@ public:
 
     const queue<int> &getCratesQ() const;
 
-   // void setCratesQ(const queue<uint> &cratesQ);
     void pushCrates(int crates){
         crates_q.push(crates);
     }
@@ -44,7 +43,6 @@ public:
 
     const queue<weak_ptr<Warehouse>> &getWarehouseQ() const;
 
-    //void setWarehouseQ(const queue<weak_ptr<Warehouse>> &warehouseQ);
     void pushWarehouse(weak_ptr<Warehouse>& warehouse){
         warehouse_q.push(warehouse);
     }
@@ -54,7 +52,6 @@ public:
 
     const queue<pair<double, double>> &getArriveDepartQ() const;
 
-   // void setArriveDepartQ(const queue<pair<double, double>> &arriveDepartQ);
     void pushArriveDepart(pair<double, double> &p){
         arrive_depart_q.push(p);
     }

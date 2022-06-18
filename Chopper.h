@@ -21,6 +21,8 @@ public:
 
     void course(double deg, double speed);
     void position(double  x, double y, double speed);
+    void position(Point p, double speed);
+
 
     void update(double general_time) override;
     void broadcast_status() override;

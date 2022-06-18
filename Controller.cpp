@@ -62,7 +62,7 @@ double Controller::convertStringToFloat(string &number, bool is_time) {
     double n;
     toNum << number;
     if((toNum >> n).fail()){
-        //TODO throw;
+        throw notANumberException(number);
     }
     toNum.clear();
     if(is_time){
@@ -106,7 +106,7 @@ void Controller::parseTruck(string &file_name, fstream& file) {
         validTruckLineSyntax(v, true);
         auto initWare = Model::getInstance().getWareByName(v[0]);
         shared_ptr<Truck> t = dynamic_pointer_cast<Truck>(
-                vf.createVehicle(truck, name, initWare.lock()->getLocation().x, initWare.lock()->getLocation().y));
+                vf.createVehicle(truck, name, initWare.lock()->getInitLocation().x, initWare.lock()->getInitLocation().y));
         int crate_num{};
         while (!file.eof()) {
             getline(file, line);
@@ -173,24 +173,37 @@ void Controller::erase_r(string &str, int size) {
 void Controller::createTroop(vector<string> &data) {
     validStateTrooper(data);
     auto ware = Model::getInstance().getWareByName(data[3]).lock();
-    auto tr = vf.createVehicle(trooper, data[1], ware->getLocation().x, ware->getLocation().y);
+    auto tr = vf.createVehicle(trooper, data[1], ware->getInitLocation().x, ware->getInitLocation().y);
     Model::getInstance().pushObj(tr);
 }
 
 void Controller::createChopper(vector<string> &data) {
-
-    data[3].erase(data[3].begin(), data[3].begin() + 1);
-    data[3].erase(data[3].end()-1, data[3].end());
-    data[4].erase(data[4].end()-1, data[4].end());
-    double x = convertStringToFloat(data[3], false);
-    double y = convertStringToFloat(data[4], false);
-    auto c = vf.createVehicle(chopper, data[1], x, y);
+    validChopper(data);
+    Point p = getPointFromString(data[3], data[4]);
+    auto c = vf.createVehicle(chopper, data[1], p.x, p.y);
     Model::getInstance().pushObj(c);
 
 }
 
-Controller::Controller(int argc, char **argv) {
-
+Controller::Controller(int argc, char **argv): vf(), view(make_shared<View>(View())) {
+//    view(make_shared<View>(View()));
+    int idx = 1;
+    string curr_arg = argv[idx];
+    if(curr_arg != "-w"){
+        throw runtime_error("missing flag: -w");
+    }
+    curr_arg = argv[++idx];
+    fstream file;
+    parseWarehouse(curr_arg, file);
+    curr_arg = argv[++idx];
+    if(curr_arg != "-t"){
+        throw runtime_error("missing flag: -t");
+    }
+    while(++idx < argc){
+        curr_arg = argv[idx];
+        parseTruck(curr_arg, file);
+    }
+    Model::getInstance().attach(view);
 }
 
 void Controller::run() {
@@ -200,88 +213,214 @@ void Controller::run() {
         string command;
         getline(cin, command);
         vector<string> data = split(command, " ");
-        switch(choices[data[0]]){
-            case 0:{
-                view->def_values();
-                break;
+        try {
+            switch (choices[data[0]]) {
+                case 0: {
+                    if(data[0] == "default"){
+                        view->def_values();
+                    }
+                    else{
+                        vehicleCommand(data);
+                    }
+                    break;
+                }
+                case 1: {
+                    if (data.size() != 2) {
+                        throw invalid_argument(command);
+                    }
+                    int sz = (int) convertStringToFloat(data[1]);
+                    if (sz < MIN_SIZE || sz > MAX_SIZE) {
+                        throw invalid_argument(data[1]);
+                    }
+                    view->setSize(sz);
+                    break;
+                }
+                case 2: {
+                    if (data.size() != 2) {
+                        throw invalid_argument(command);
+                    }
+                    double zm = convertStringToFloat(data[1]);
+                    if (zm < 1) {
+                        throw invalid_argument(data[1]);
+                    }
+                    view->setZoom(zm);
+                    break;
+                }
+                case 3: {
+                    if (data.size() != 3) {
+                        throw invalid_argument(command);
+                    }
+                    double x = convertStringToFloat(data[1]);
+                    double y = convertStringToFloat(data[2]);
+                    view->setPan(Point(x, y));
+                    break;
+                }
+                case 4: {
+                    if (data.size() != 1) {
+                        throw invalid_argument(command);
+                    }
+                    view->show();
+                    break;
+                }
+                case 5: {
+                    if (data.size() != 1) {
+                        throw invalid_argument(command);
+                    }
+                    Model::getInstance().broadcast_status();
+                    break;
+                }
+                case 6: {
+                    if (data.size() != 1) {
+                        throw invalid_argument(command);
+                    }
+                    Model::getInstance().update();
+                    break;
+                }
+                case 7: {
+                    if (data[2] == "Chopper") {
+                        createChopper(data);
+                    } else if (data[2] == "State_trooper") {
+                        createTroop(data);
+                    } else {
+                        throw invalidVehicleTypeException(data[2]);
+                    }
+                    break;
+                }
+                case 8: {
+                    running = false;
+                    break;
+                }
+//                default: {
+//                    vehicleCommand(data);
+//                    break;
+//                }
             }
-            case 1:{
-                if(data.size() != 2){ //TODO ERRORS
-                    //throw error
-                }
-                int sz = (int)convertStringToFloat(data[1]);
-                if(sz < MIN_SIZE || sz > MAX_SIZE){
-                    // throw error
-                }
-                view->setSize(sz);
-                break;
-            }
-            case 2:{
-                if(data.size() != 2){ //TODO ERRORS
-                    //throw error
-                }
-                double zm = convertStringToFloat(data[1]);
-                if(zm < 1){
-                    // throw error
-                }
-                view->setZoom(zm);
-                break;
-            }
-            case 3:{
-                if(data.size() != 3){ //TODO ERRORS
-                    //throw error
-                }
-                double x = convertStringToFloat(data[1]);
-                double y = convertStringToFloat(data[2]);
-                view->setPan(Point(x, y));
-                break;
-            }
-            case 4:{
-                if(data.size() != 1){
-                    //throw
-                }
-                view->show();
-                break;
-            }
-            case 5:{
-                if(data.size() != 1){
-                    //throw
-                }
-                Model::getInstance().broadcast_status();
-                break;
-            }
-            case 6:{
-                if(data.size() != 1){
-                    //throw
-                }
-                Model::getInstance().update();
-            }
-            case 7:{
-                if(data[2] == "Chopper"){
-                    createChopper(data);
-                }
-                else if(data[2] == "State_trooper"){
-                    createTroop(data);
-                }
-                else{
-                    // throw error
-                }
-                break;
-            }
-            case 8:{
-                running = false;
-                break;
-            }
-            default:{
-
-            }
-
         }
-
+        catch (invalid_argument& ia){
+            cerr << ia.what()<<endl;
+        }
+        catch(exception& e){
+            cerr << e.what()<<endl;
+        }
     }
+}
 
+Point Controller::getPointFromString(string& x_st, string& y_st){
+    x_st.erase(x_st.begin(), x_st.begin() + 1);
+    x_st.erase(x_st.end()-1, x_st.end());
+    y_st.erase(y_st.end()-1, y_st.end());
+    double x = Controller::convertStringToFloat(x_st, false);
+    double y = convertStringToFloat(y_st, false);
+    return {x, y};
 }
 
 void Controller::vehicleCommand(vector<string> &data) {
+    auto v = Model::getInstance().getVehicleByName(data[0]);
+    ObjType tp;
 
+    if(v == nullptr){
+        throw Model::invalidNameException(data[0]);
+    }
+
+    if(typeid(*v) == typeid(Truck)){
+        tp = truck;
+    }
+
+    if(typeid(*v) == typeid(Chopper)){
+        tp = chopper;
+    }
+
+    if(typeid(*v) == typeid(StateTrooper)){
+        tp = trooper;
+    }
+
+    switch (choices[data[1]]) {
+        case 9:{
+            if(tp == truck){
+                throw invalidVehicleTypeException("Truck");
+            }
+            if(tp == chopper){
+                weak_ptr<Chopper> c = dynamic_pointer_cast<Chopper>(v);
+                if(data.size() != 4){
+                    throw invalid_argument(data[1]);
+                }
+                double speed = convertStringToFloat(data[3]) / 100;
+                double course = convertStringToFloat(data[2]);
+                if(speed > SPEED_LIM){
+                    throw invalid_argument(data[3]);
+
+                }
+                c.lock()->course(course, speed);
+
+            }
+            if(tp == trooper){
+                if(data.size() != 3){
+                    throw invalid_argument(data[1]);
+                }
+                double course = convertStringToFloat(data[2]);
+                v->course(course);
+            }
+            break;
+        }
+        case 10:{
+            if(tp == truck){
+                throw invalidVehicleTypeException("Truck");
+            }
+            if(tp == chopper){
+                weak_ptr<Chopper> c = dynamic_pointer_cast<Chopper>(v);
+                if(data.size() != 5){
+                    throw invalid_argument(data[1]);
+                }
+                double speed = convertStringToFloat(data[5]) / 100;
+                Point p = getPointFromString(data[3], data[4]);
+                if(speed > SPEED_LIM){
+                    throw invalid_argument(data[3]);
+                }
+                c.lock()->position(p, speed);
+            }
+            if(tp == trooper){
+                if(data.size() != 4){
+                    throw invalid_argument(data[1]);
+
+                }
+                Point p = getPointFromString(data[3], data[4]);
+                v->position(p);
+            }
+            break;
+        }
+        case 11:{
+            if(tp == truck || tp == chopper){
+                throw invalid_argument(typeid(*v).name()+6);
+
+            }
+            if(data.size() != 3){
+                throw invalid_argument(data[1]);
+            }
+            auto w = Model::getInstance().getWareByName(data[2]).lock();
+            if(w == nullptr){
+                throw Model::invalidNameException(data[2]);
+            }
+            v->position(w->getInitLocation());
+            break;
+        }
+        case 12:{
+            if(data.size() !=3){
+                throw invalid_argument(data[1]);
+
+            }
+            Model::getInstance().attackByName(data[0], data[2]);
+            break;
+        }
+        case 13:{
+            if(data.size() !=2){
+                throw invalid_argument(data[1]);
+
+            }
+            v->setState(stopped);
+            break;
+        }
+        default:{
+            throw Model::invalidNameException(data[1]);
+        }
+    }
 }

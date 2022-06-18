@@ -7,11 +7,11 @@ void StateTrooper::getClosestWarehouse() {
     int count = 0;
     for (const auto &p: warehouses) {
         if (!p.second) {
-            if (min_dist > distance(getLocation(), p.first.lock()->getLocation())) {
-                min_dist = distance(getLocation(), p.first.lock()->getLocation());
+            if (min_dist > distance(getLocation(), p.first.lock()->getInitLocation())) {
+                min_dist = distance(getLocation(), p.first.lock()->getInitLocation());
                 curr_min = p.first;
                 warehouse_idx = count;
-            } else if (min_dist == distance(getLocation(), p.first.lock()->getLocation())) {
+            } else if (min_dist == distance(getLocation(), p.first.lock()->getInitLocation())) {
                 string w1 = curr_min.lock()->getName();
                 string w2 = p.first.lock()->getName();
                 unsigned int length = min(w1.size(), w2.size());
@@ -20,7 +20,7 @@ void StateTrooper::getClosestWarehouse() {
                     else if (w1[i] < w2[i]) {
                         break;
                     } else {
-                        min_dist = distance(getLocation(), p.first.lock()->getLocation());
+                        min_dist = distance(getLocation(), p.first.lock()->getInitLocation());
                         curr_min = p.first;
                         warehouse_idx = count;
                         break;
@@ -34,7 +34,7 @@ void StateTrooper::getClosestWarehouse() {
         tb.setDestination(init_location);
     }
     else{
-        tb.setDestination(curr_min.lock()->getLocation());
+        tb.setDestination(curr_min.lock()->getInitLocation());
     }
 
 }
@@ -46,7 +46,7 @@ void StateTrooper::update(double general_time) {
         time_to_arrive = d / tb.getSpeed();
         if(time_to_arrive <= 1){
             drive(time_to_arrive);
-            if(warehouses[warehouse_idx].first.lock()->getLocation() == tb.getDestination()){
+            if(warehouses[warehouse_idx].first.lock()->getInitLocation() == tb.getDestination()){
                 warehouses[warehouse_idx].second = true;
             }
             getClosestWarehouse();
@@ -67,7 +67,7 @@ void StateTrooper::broadcast_status() {
         cout << ", Heading to " << warehouses[warehouse_idx].first.lock()->getName();
     }
     else if(state == moving_course){
-        cout << ", Heading on course " << setprecision(2) << tb.getCourse() << " degrees";
+        cout << ", Heading on course " << (int)tb.getCourse() << " degrees";
     }
-    cout << ", speed " << setprecision(2) << tb.getSpeed() << " km/h" << endl;
+    cout << ", speed " << setprecision(2) << tb.getSpeed() * 100 << " km/h" << endl;
 }

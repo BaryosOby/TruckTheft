@@ -11,6 +11,10 @@ protected:
 public:
     Vehicle(string& name, double x, double y):Sim_obj(name, x, y), tb(x, y), state(stopped){}
 
+    Point getLocation() const{
+        return tb.getLocation();
+    }
+
     virtual void course(double deg){
         state = moving_course;
         tb.setCourseByDeg(deg);
@@ -18,6 +22,11 @@ public:
     virtual void position(double  x, double y){
         state = moving_dest;
         tb.setDestination(x, y);
+    }
+
+    virtual void position(Point p){
+        state = moving_dest;
+        tb.setDestination(p);
     }
 
     virtual void update(double general_time) override = 0;

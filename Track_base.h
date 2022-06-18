@@ -69,7 +69,7 @@ public:
         pv.r = distance;
         pv.theta = to_radians(course);
         Cartesian_vector cv(pv);
-        location.setCord(cv.delta_x, cv.delta_y);
+        location.setCord(cv.delta_x+location.x, cv.delta_y+location.y);
     }
 
 

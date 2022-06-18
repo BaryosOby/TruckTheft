@@ -1,8 +1,24 @@
-#include <iostream>
 #include "Controller.h"
 
 
-int main() {
+int main(int argc, char** argv) {
+
+    try{
+        if (argc < 5) throw runtime_error("Not enough arguments!\n");
+        Controller c(argc, argv);
+        c.run();
+    }
+
+    catch (runtime_error& error) {
+        cerr << error.what();
+        exit(0);
+    }
+    catch(exception& e){
+        cerr << e.what();
+        exit(1);
+    }
+
+
 //    auto v = View();
 //    string s = "AAA";
 //    string s1 = "BBB";
@@ -21,24 +37,25 @@ int main() {
 //    v.pushObj(r5);
 //    //v.setPan(Point(2.5,3.5));
 //    //v.setZoom(2.5);
-//    map<pair<double,double>, string> map = v.objects_in_range();
+////    map<pair<double,double>, string> map = v.objects_in_range();
+//    v.setPan(Point(-10, -10));
 //    v.show();
-
-    Controller c;
-    fstream dep;
-    string dep_name = "depot.dat";
-//    dep.open(dep_name, ios_base::in);
-    c.parseWarehouse(dep_name, dep);
-    string trk_name = "Godzilla.txt";
-    fstream god;
-//    dep.open(dep_name);
-    c.parseTruck(trk_name, god);
-    shared_ptr<View> v = make_shared<View>(View());
-    Model::getInstance().attach(v);
-//    Model::getInstance().broadcast_status();
-    Point p(-10, -10);
-    v->setPan(p);
-    v->show();
+//
+////    Controller c;
+////    fstream dep;
+////    string dep_name = "depot.dat";
+//////    dep.open(dep_name, ios_base::in);
+////    c.parseWarehouse(dep_name, dep);
+////    string trk_name = "Godzilla.txt";
+////    fstream god;
+//////    dep.open(dep_name);
+////    c.parseTruck(trk_name, god);
+////    shared_ptr<View> v = make_shared<View>(View());
+////    Model::getInstance().attach(v);
+//////    Model::getInstance().broadcast_status();
+////    Point p(-10, -10);
+////    v->setPan(p);
+////    v->show();
 
 
     return 0;

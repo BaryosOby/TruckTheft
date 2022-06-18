@@ -15,7 +15,7 @@ protected:
     Point init_location;
     string name;
 public:
-    const Point &getLocation() const{return init_location;};
+    const Point &getInitLocation() const{return init_location;};
 
     void setLocation(double x, double y){init_location.setCord(x, y); };
 

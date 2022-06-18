@@ -25,11 +25,7 @@ private:
 
     Point checkRange(const Point &p) const;
 
-    void fixPrint(double maxRange,double r) const;
-
     void print_x_interval() const;
-
-    void print_y_interval(int& toPrint,double max_range_y,double curr_y) const;
 
 public:
     View();

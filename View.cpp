@@ -81,17 +81,22 @@ void View::clear() {
     objects.clear();
 }
 
-void View::show(){
+void View::show() {
     objects_in_range();
     cout << "Display size: " << size << ", scale: " << setprecision(2) << zoom << ", origin: ";
     cout << "(" << setprecision(2) << pan.x << "," << setprecision(2) << pan.y << ")" << endl;
     double curr_x = pan.x;
     double curr_y = pan.y + ((size - 1) * zoom);
     double max_range_x = pan.x + ((size - 1) * zoom);
-    double max_range_y = curr_y;
     int toPrint = 0;
     while (curr_y >= pan.y) {
-        print_y_interval(toPrint, max_range_y, curr_y); //print curr y location
+        if (toPrint % 4 == 0) {
+            cout << setw(4) << curr_y;
+            cout << " ";
+        } else {
+            cout << "     ";
+        }
+        toPrint++;
         while (curr_x <= max_range_x) {
             auto p = pair<double, double>(curr_x, curr_y);
             if (obj_in_range.find(p) != obj_in_range.end()) {
@@ -108,47 +113,19 @@ void View::show(){
     print_x_interval(); //print curr x location
 }
 
-void View::fixPrint(double maxRange, double r) const {  //TODO fix interval in minus
-    // print number with spaces to align all numbers while printing map
-    stringstream ss;
-    string num, maxNum;
-    ss << r;
-    ss >> num;
-    ss.clear();
-    ss << maxRange;
-    ss >> maxNum;
-    int spacesAmount = maxNum.size() - num.size();
-    while (spacesAmount > 0) {
-        cout << " ";
-        spacesAmount--;
-    }
-    cout << setprecision(2) << r;
-}
-
 void View::print_x_interval() const {
-    cout << " ";
-    int toPrint = 0;
+    int toPrint = 1;
     double curr_x = pan.x;
+    cout << setw(6) << curr_x;
+    curr_x += zoom;
     for (int i = 0; i < size; ++i) {
+
         if (toPrint % 4 == 0) {
-            cout << "  ";
-            cout << curr_x;
-            if (curr_x == pan.x) cout << " ";
+            cout << setw(12) << curr_x;
         }
-        cout << "  ";
         curr_x += zoom;
         toPrint++;
     }
-}
-
-void View::print_y_interval(int &toPrint, double max_range_y, double curr_y) const {
-    if (toPrint % 4 == 0) {
-        fixPrint(max_range_y, curr_y);
-        cout << " ";
-    } else {
-        cout << "   ";
-    }
-    toPrint++;
 }
 
 void View::def_values() {

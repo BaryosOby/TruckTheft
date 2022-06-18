@@ -31,7 +31,7 @@ Point View::checkRange(const Point &p) const {
 }
 
 
-map<pair<double, double>, string> &View::objects_in_range() {
+void View::objects_in_range() {
     obj_in_range.clear();
     Point check_range;
     string name;
@@ -44,7 +44,6 @@ map<pair<double, double>, string> &View::objects_in_range() {
             name = "";
         }
     }
-    return obj_in_range;
 }
 
 const Point &View::getPan() const {
@@ -82,7 +81,8 @@ void View::clear() {
     objects.clear();
 }
 
-void View::show() const {
+void View::show(){
+    objects_in_range();
     cout << "Display size: " << size << ", scale: " << setprecision(2) << zoom << ", origin: ";
     cout << "(" << setprecision(2) << pan.x << "," << setprecision(2) << pan.y << ")" << endl;
     double curr_x = pan.x;
@@ -108,7 +108,7 @@ void View::show() const {
     print_x_interval(); //print curr x location
 }
 
-void View::fixPrint(double maxRange, double r) const {
+void View::fixPrint(double maxRange, double r) const {  //TODO fix interval in minus
     // print number with spaces to align all numbers while printing map
     stringstream ss;
     string num, maxNum;
@@ -117,7 +117,7 @@ void View::fixPrint(double maxRange, double r) const {
     ss.clear();
     ss << maxRange;
     ss >> maxNum;
-    uint spacesAmount = maxNum.size() - num.size();
+    int spacesAmount = maxNum.size() - num.size();
     while (spacesAmount > 0) {
         cout << " ";
         spacesAmount--;
@@ -149,5 +149,12 @@ void View::print_y_interval(int &toPrint, double max_range_y, double curr_y) con
         cout << "   ";
     }
     toPrint++;
+}
+
+void View::def_values() {
+    Point p(DEF_PAN, DEF_PAN);
+    setPan(p);
+    setSize(DEF_SIZE);
+    setZoom(DEF_SCALE);
 }
 

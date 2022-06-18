@@ -47,7 +47,7 @@ void Truck::update(double general_time) {
 
 void Truck::broadcast_status() {
     // Truck Godzilla at (37.14, 10.00), Heading to Lille, Crates: 105
-    cout << "Truck " << name << "at ";
+    cout << "Truck " << name << " at ";
     tb.getLocation().print();
     if(state == moving_dest){
         cout << ", Heading to " << next_warehouse.lock()->getName();

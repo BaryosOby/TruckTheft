@@ -34,7 +34,7 @@ private:
 public:
     View();
 
-    map<pair<double, double>, string> &objects_in_range();
+    void objects_in_range();
 
     const Point &getPan() const;
 
@@ -52,7 +52,9 @@ public:
 
     void clear();
 
-    void show() const;
+    void show();
+
+    void def_values();
 };
 
 

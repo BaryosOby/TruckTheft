@@ -44,21 +44,21 @@ void Model::pushObj(const shared_ptr<Sim_obj>& obj) {
         trucks.push_back(dynamic_pointer_cast<Truck>(obj));
     }
 
-    if(typeid(obj) == typeid(Chopper)){
+    if(typeid(*obj) == typeid(Chopper)){
         choppers.push_back(dynamic_pointer_cast<Chopper>(obj));
     }
 
-    if(typeid(obj) == typeid(StateTrooper)){
+    if(typeid(*obj) == typeid(StateTrooper)){
         troops.push_back(dynamic_pointer_cast<StateTrooper>(obj));
     }
 
-    if(typeid(obj) == typeid(Warehouse)){
+    if(typeid(*obj) == typeid(Warehouse)){
         warehouses.push_back(dynamic_pointer_cast<Warehouse>(obj));
     }
 }
 
-void Model::attach(View &v) {
-    view = make_shared<View>(v);
+void Model::attach(shared_ptr<View> &v) {
+    view = v;
     for(const auto& ob : objs){
         view->pushObj(ob);
     }

@@ -26,15 +26,17 @@ private:
                                 {"attack",      12},
                                 {"stop",        13}};
 
+    void erase_r(string & str , int size = 5);
+    VehicleFactory vf;
+    shared_ptr<View> view; //TODO in ctor - attach
 
-public:
     vector<string> split(string& text,const string& delimiter = ",");
 
     void validFile(const string& fileName, fstream& file);
 
     void validName(const string& name , int maxSize = MAX_NAME);
 
-    void validTruckLineSyntax(vector<string>& data , bool isFirst = false);
+    void validTruckLineSyntax(vector<string> data , bool isFirst = false);
 
     void parseTruck(string& file_name, fstream& file);
 
@@ -51,7 +53,18 @@ public:
     void removeBrackets(string & str);
 
     void validChopper(vector<string>& data);
+
+    void createTroop(vector<string>& data);
+
+    void createChopper(vector<string>& data);
+
+    void vehicleCommand(vector<string>& data);
+
+public:
+    Controller(int argc, char** argv);
+
+    [[noreturn]] void run();
 };
 
 
-#endif //CPPAD03_CONTROLLER_H
+#endif

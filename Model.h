@@ -18,7 +18,6 @@ private:
 
     bool findObj(Sim_obj& obj) const;
 
-    shared_ptr<Vehicle> getVehicleByName(const string& name);
 
     bool findTroop(const Truck& t) const;
 
@@ -26,7 +25,6 @@ private:
 
 
 
-    double getTime() const;
 
 public:
 
@@ -42,6 +40,7 @@ public:
         }
     };
 
+    double getTime() const;
 
     Model(Model&) = delete;
     Model(Model&&) = delete;
@@ -54,7 +53,7 @@ public:
 
     void pushObj(const shared_ptr<Sim_obj>& obj);
 
-    void attach(View& v);
+    void attach(shared_ptr<View> &v);
 
     void broadcast_status() const;
 
@@ -63,6 +62,8 @@ public:
     void stop(const string& name);
 
     weak_ptr<Warehouse> getWareByName(const string& name);
+
+    shared_ptr<Vehicle> getVehicleByName(const string& name);
 
     void setDestByName(const string &troop_name, const string &ware_name);
 

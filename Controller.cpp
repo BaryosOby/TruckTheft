@@ -26,7 +26,7 @@ void Controller::validName(const string &name, int maxSize) {
 }
 
 //check  validation of a line in a truck file configuration.
-void Controller::validTruckLineSyntax(vector<string> &data, bool isFirst) {
+void Controller::validTruckLineSyntax(vector<string> data, bool isFirst) {
     validName(data[0]);
     vector<string> time = split(data[1], ":");
     for (const auto &numbers : time) {
@@ -55,11 +55,15 @@ void Controller::validTruckLineSyntax(vector<string> &data, bool isFirst) {
 
 //convert given string to a float
 double Controller::convertStringToFloat(string &number, bool is_time) {
-    replaceChar(number);
+    if(is_time){
+        replaceChar(number);
+    }
     stringstream toNum;
     double n;
     toNum << number;
-    toNum >> n;
+    if((toNum >> n).fail()){
+        //TODO throw;
+    }
     toNum.clear();
     if(is_time){
         int int_n = (int) n;
@@ -75,13 +79,13 @@ void Controller::replaceChar(string &str, const string &c) {
 }
 
 void Controller::validStateTrooper(vector<string>& data) {
-    validName(data[0]); // possible data[1] need to check
-    //need to check if warehouse exist
-
+    validName(data[1]);
+    Model::getInstance().getWareByName(data[3]);
 }
 
 void Controller::validChopper(vector<string> &data) {
-    validName(data[0]); // possible data[1] need to check
+    validName(data[0]);
+
 }
 
 void Controller::removeBrackets(string &str) {
@@ -92,22 +96,22 @@ void Controller::removeBrackets(string &str) {
 
 
 void Controller::parseTruck(string &file_name, fstream& file) {
-    try {
         validFile(file_name, file);
         string name = split(file_name, ".")[0];
         validName(name);
         string line;
         getline(file, line);
         auto v = split(line);
+        erase_r(v[1]);
         validTruckLineSyntax(v, true);
-        VehicleFactory vf;
-        auto initWare = Model::getInstance().getWareByName(split(line)[0]);
+        auto initWare = Model::getInstance().getWareByName(v[0]);
         shared_ptr<Truck> t = dynamic_pointer_cast<Truck>(
                 vf.createVehicle(truck, name, initWare.lock()->getLocation().x, initWare.lock()->getLocation().y));
         int crate_num{};
         while (!file.eof()) {
             getline(file, line);
             v = split(line);
+            erase_r(v[3]);
             validTruckLineSyntax(v);
             auto ware = Model::getInstance().getWareByName(v[0]);
             t->pushWarehouse(ware);
@@ -123,12 +127,7 @@ void Controller::parseTruck(string &file_name, fstream& file) {
         t->setCratesNum(crate_num);
         t->setNextWarehouse();
         Model::getInstance().pushObj(t);
-    }
-    catch (exception e){
-        cerr << e.what();
-        throw runtime_error("invalid file content");
-    }
-
+        file.close();
 }
 
 void Controller::validWareLineSyntax(vector<string> &data) {
@@ -160,5 +159,129 @@ void Controller::parseWarehouse(string &file_name, fstream &file){
             auto w = make_shared<Warehouse>(v[0], x, y, crates);
             Model::getInstance().pushObj(w);
         }
+        file.close();
+}
+
+
+void Controller::erase_r(string &str, int size) {
+    if(str.size() > size){
+        unsigned long diff = str.size() - size;
+        str.erase(str.end() - diff,str.end());
+    }
+}
+
+void Controller::createTroop(vector<string> &data) {
+    validStateTrooper(data);
+    auto ware = Model::getInstance().getWareByName(data[3]).lock();
+    auto tr = vf.createVehicle(trooper, data[1], ware->getLocation().x, ware->getLocation().y);
+    Model::getInstance().pushObj(tr);
+}
+
+void Controller::createChopper(vector<string> &data) {
+
+    data[3].erase(data[3].begin(), data[3].begin() + 1);
+    data[3].erase(data[3].end()-1, data[3].end());
+    data[4].erase(data[4].end()-1, data[4].end());
+    double x = convertStringToFloat(data[3], false);
+    double y = convertStringToFloat(data[4], false);
+    auto c = vf.createVehicle(chopper, data[1], x, y);
+    Model::getInstance().pushObj(c);
+
+}
+
+Controller::Controller(int argc, char **argv) {
+
+}
+
+void Controller::run() {
+    bool running = true;
+    while(running){
+        cout << "Time " << Model::getInstance().getTime() << ": Enter command: ";
+        string command;
+        getline(cin, command);
+        vector<string> data = split(command, " ");
+        switch(choices[data[0]]){
+            case 0:{
+                view->def_values();
+                break;
+            }
+            case 1:{
+                if(data.size() != 2){ //TODO ERRORS
+                    //throw error
+                }
+                int sz = (int)convertStringToFloat(data[1]);
+                if(sz < MIN_SIZE || sz > MAX_SIZE){
+                    // throw error
+                }
+                view->setSize(sz);
+                break;
+            }
+            case 2:{
+                if(data.size() != 2){ //TODO ERRORS
+                    //throw error
+                }
+                double zm = convertStringToFloat(data[1]);
+                if(zm < 1){
+                    // throw error
+                }
+                view->setZoom(zm);
+                break;
+            }
+            case 3:{
+                if(data.size() != 3){ //TODO ERRORS
+                    //throw error
+                }
+                double x = convertStringToFloat(data[1]);
+                double y = convertStringToFloat(data[2]);
+                view->setPan(Point(x, y));
+                break;
+            }
+            case 4:{
+                if(data.size() != 1){
+                    //throw
+                }
+                view->show();
+                break;
+            }
+            case 5:{
+                if(data.size() != 1){
+                    //throw
+                }
+                Model::getInstance().broadcast_status();
+                break;
+            }
+            case 6:{
+                if(data.size() != 1){
+                    //throw
+                }
+                Model::getInstance().update();
+            }
+            case 7:{
+                if(data[2] == "Chopper"){
+                    createChopper(data);
+                }
+                else if(data[2] == "State_trooper"){
+                    createTroop(data);
+                }
+                else{
+                    // throw error
+                }
+                break;
+            }
+            case 8:{
+                running = false;
+                break;
+            }
+            default:{
+
+            }
+
+        }
+
+    }
+
+}
+
+void Controller::vehicleCommand(vector<string> &data) {
 
 }

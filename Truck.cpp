@@ -17,7 +17,7 @@ const queue<pair<double, double>> &Truck::getArriveDepartQ() const {
     return arrive_depart_q;
 }
 
-
+//update after givven 'go' command
 void Truck::update(double general_time) {
     double prev_depart = next_depart;
     // track is done
@@ -50,7 +50,7 @@ void Truck::update(double general_time) {
     }
 
 }
-
+//print status
 void Truck::broadcast_status() {
     // Truck Godzilla at (37.14, 10.00), Heading to Lille, Crates: 105
     cout << "Truck " << name << " at ";
@@ -69,7 +69,7 @@ void Truck::unload() {
 const weak_ptr<Warehouse> &Truck::getCurrWarehouse() const {
     return next_warehouse;
 }
-
+//set next details for truck
 void Truck::setNextWarehouse() {
     next_warehouse = warehouse_q.front();
     warehouse_q.pop();
@@ -84,7 +84,7 @@ void Truck::setNextWarehouse() {
 const queue<int> &Truck::getCratesQ() const {
     return crates_q;
 }
-
+//set speed according to arrive time for next destination
 void Truck::setSpeedByDriveTime() {
     double dist = distance(next_warehouse.lock()->getInitLocation(), warehouse_q.front().lock()->getInitLocation());
     double t = arrive_depart_q.front().first - next_depart;

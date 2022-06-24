@@ -1,6 +1,6 @@
 #include "View.h"
 
-
+//check if a location of an object is the radius of a point in the view map
 Point View::checkRange(const Point &p) const {
     double x = p.x;
     double y = p.y;
@@ -30,7 +30,7 @@ Point View::checkRange(const Point &p) const {
     return res;
 }
 
-
+//updating objects that are in the range of the map
 void View::objects_in_range() {
     obj_in_range.clear();
     Point check_range;
@@ -84,7 +84,7 @@ void View::pushObj(const shared_ptr<Sim_obj> &sp) {
 void View::clear() {
     objects.clear();
 }
-
+// print map & objects that in her range
 void View::show() {
     objects_in_range();
     cout << "Display size: " << size << ", scale: " << setprecision(2) << zoom << ", origin: ";
@@ -95,7 +95,7 @@ void View::show() {
     int toPrint = 0;
     while (curr_y >= pan.y) {
         if (toPrint % 4 == 0) {
-            cout << setw(4) << curr_y;
+            cout << setw(4) << (int)curr_y;
             cout << " ";
         } else {
             cout << "     ";
@@ -116,23 +116,23 @@ void View::show() {
     }
     print_x_interval(); //print curr x location
 }
-
+// print x bar
 void View::print_x_interval() const {
     int toPrint = 1;
     double curr_x = pan.x;
-    cout << setw(6) << curr_x;
+    cout << setw(6) << (int) curr_x;
     curr_x += zoom;
     for (int i = 0; i < size; ++i) {
 
         if (toPrint % 4 == 0) {
-            cout << setw(12) << curr_x;
+            cout << setw(12) << (int) curr_x;
         }
         curr_x += zoom;
         toPrint++;
     }
     cout << endl;
 }
-
+//set default values to the map
 void View::def_values() {
     Point p(DEF_PAN, DEF_PAN);
     setPan(p);

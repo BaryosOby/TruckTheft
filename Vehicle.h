@@ -40,7 +40,7 @@ public:
     void drive(double time = 1) {
         tb.drive(time);
     }
-
+    //check if two vehicle are in the same radius
     bool check_radius(Point p, double radius) const {
         double delta_x = abs(tb.getLocation().x - p.x);
         double delta_y = abs(tb.getLocation().y - p.y);

@@ -64,7 +64,7 @@ public:
     void setLocation(double x, double y) {
         location.setCord(x, y);
     }
-
+    //drive vehicle
     void drive(double time = 1) {
         double distance = speed * time;
         Polar_vector pv;

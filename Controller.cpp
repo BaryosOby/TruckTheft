@@ -1,5 +1,5 @@
 #include "Controller.h"
-
+//spilt by given delimiter
 vector<string> Controller::split(string &text, const string &delimiter) {
     vector<string> words{};
     size_t pos = 0;
@@ -10,14 +10,14 @@ vector<string> Controller::split(string &text, const string &delimiter) {
     words.push_back(text.substr(0, pos));
     return words;
 }
-
+//check for valid file
 void Controller::validFile(const string &fileName, fstream &file) {
     file.open(fileName, ios_base::in);
     if (!file.is_open()) {
         throw runtime_error(fileName + " is not open");
     }
 }
-
+//check valid for name
 void Controller::validName(const string &name, int maxSize) {
     if (name.size() > maxSize) throw runtime_error("Name is too long!\n");
     for (char c : name) {
@@ -78,24 +78,24 @@ double Controller::convertStringToFloat(string &number, bool is_time) {
 void Controller::replaceChar(string &str, const string &c) {
     str.replace(2, 1, c);
 }
-
+//valid trooper
 void Controller::validStateTrooper(vector<string> &data) {
     validName(data[1]);
     Model::getInstance().getWareByName(data[3]);
 }
-
+//valid chopper
 void Controller::validChopper(vector<string> &data) {
     validName(data[0]);
 
 }
-
+//remove '(' or ')' from string
 void Controller::removeBrackets(string &str) {
     int size = str.size() - 1;
     str.replace(0, 1, "");
     str.replace(size - 1, size, "");
 }
 
-
+//create truck
 void Controller::parseTruck(string &file_name, fstream &file) {
     validFile(file_name, file);
     string name = split(file_name, ".")[0];
@@ -130,7 +130,7 @@ void Controller::parseTruck(string &file_name, fstream &file) {
     Model::getInstance().pushObj(t);
     file.close();
 }
-
+//valid warehouse
 void Controller::validWareLineSyntax(vector<string> &data) {
     validName(data[0]);
     int crates;
@@ -140,7 +140,7 @@ void Controller::validWareLineSyntax(vector<string> &data) {
         throw runtime_error("crates number must be non-negative");
     }
 }
-
+//create warehouse
 void Controller::parseWarehouse(string &file_name, fstream &file) {
     validFile(file_name, file);
     string line;
@@ -163,21 +163,21 @@ void Controller::parseWarehouse(string &file_name, fstream &file) {
     file.close();
 }
 
-
+//erase part of a string
 void Controller::erase_r(string &str, int size) {
     if (str.size() > size) {
         unsigned long diff = str.size() - size;
         str.erase(str.end() - diff, str.end());
     }
 }
-
+//create trooper
 void Controller::createTroop(vector<string> &data) {
     validStateTrooper(data);
     auto ware = Model::getInstance().getWareByName(data[3]).lock();
     auto tr = vf.createVehicle(trooper, data[1], ware->getInitLocation().x, ware->getInitLocation().y);
     Model::getInstance().pushObj(tr);
 }
-
+//create chopper
 void Controller::createChopper(vector<string> &data) {
     validChopper(data);
     Point p = getPointFromString(data[3], data[4]);
@@ -185,7 +185,7 @@ void Controller::createChopper(vector<string> &data) {
     Model::getInstance().pushObj(c);
 
 }
-
+//c'tor
 Controller::Controller(int argc, char **argv) : vf(), view(make_shared<View>(View())) {
 //    view(make_shared<View>(View()));
     int idx = 1;
@@ -206,7 +206,7 @@ Controller::Controller(int argc, char **argv) : vf(), view(make_shared<View>(Vie
     }
     Model::getInstance().attach(view);
 }
-
+//run simulation
 void Controller::run() {
     bool running = true;
     while (running) {
@@ -304,7 +304,7 @@ void Controller::run() {
         }
     }
 }
-
+//parse point
 Point Controller::getPointFromString(string &x_st, string &y_st) {
     x_st.erase(x_st.begin(), x_st.begin() + 1);
     x_st.erase(x_st.end() - 1, x_st.end());
@@ -313,7 +313,7 @@ Point Controller::getPointFromString(string &x_st, string &y_st) {
     double y = convertStringToFloat(y_st, false);
     return {x, y};
 }
-
+// command applying after given object name
 void Controller::vehicleCommand(vector<string> &data) {
     auto v = Model::getInstance().getVehicleByName(data[0]);
     ObjType tp;

@@ -1,12 +1,12 @@
 #include "Model.h"
-
+//cot'r
 Model::Model() : time(0) {
     string name = "Frankfurt";
     auto frank = make_shared<Warehouse>(name, 40, 10, 100000);
     objs.push_back(frank);
     warehouses.push_back(frank);
 }
-
+//return true if object exist
 bool Model::findObj(Sim_obj &obj) const {
     for (const auto &ob : objs) {
         if (ob->getName() == obj.getName()) {
@@ -15,19 +15,19 @@ bool Model::findObj(Sim_obj &obj) const {
     }
     return false;
 }
-
+// singleton kind of use
 Model &Model::getInstance() {
     static Model mod;
     return mod;
 }
-
+// update all objets by getting 'go' command
 void Model::update() {
     for (const auto &ob : objs) {
         ob->update(time);
     }
     time++;
 }
-
+// push object to general data structure and for its unique vector
 void Model::pushObj(const shared_ptr<Sim_obj> &obj) {
 
     if (findObj(*obj)) {
@@ -59,14 +59,14 @@ void Model::pushObj(const shared_ptr<Sim_obj> &obj) {
         warehouses.push_back(dynamic_pointer_cast<Warehouse>(obj));
     }
 }
-
+//after init attach objects to view
 void Model::attach(shared_ptr<View> &v) {
     view = v;
     for (const auto &ob : objs) {
         view.lock()->pushObj(ob);
     }
 }
-
+//find trooper
 bool Model::findTroop(const Truck &t) const {
     for (const auto &troop : troops) {
         if (t.check_radius(troop.lock()->getLocation(), 0.1)) {
@@ -76,7 +76,7 @@ bool Model::findTroop(const Truck &t) const {
     return false;
 }
 
-
+//print all objects status
 void Model::broadcast_status() const {
     for (const auto &ob : objs) {
         ob->broadcast_status();
@@ -86,7 +86,7 @@ void Model::broadcast_status() const {
 double Model::getTime() const {
     return time;
 }
-
+// chopper try to attack given truck
 void Model::attackByName(const string &chop_name, const string &truck_name) {
     auto chop = dynamic_pointer_cast<Chopper>(getVehicleByName(chop_name));
     auto truck = dynamic_pointer_cast<Truck>(getVehicleByName(truck_name));
@@ -108,7 +108,7 @@ void Model::attackByName(const string &chop_name, const string &truck_name) {
     }
 }
 
-
+// find vehicle by name
 shared_ptr<Vehicle> Model::getVehicleByName(const string &name) {
     for (const auto &ob : objs) {
         if (ob->getName() == name) {
@@ -118,7 +118,7 @@ shared_ptr<Vehicle> Model::getVehicleByName(const string &name) {
     return shared_ptr<Vehicle>();
 }
 
-
+// find warehouse by name
 weak_ptr<Warehouse> Model::getWareByName(const string &name) { //TODO combine with getV
     for (const auto &ob : warehouses) {
         if (ob.lock()->getName() == name) {

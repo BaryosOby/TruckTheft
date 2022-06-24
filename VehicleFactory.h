@@ -8,7 +8,7 @@
 class VehicleFactory {
 public:
     VehicleFactory() = default;
-
+    //create new vehicle - factory method
     shared_ptr<Vehicle> createVehicle(ObjType vt, string &name, double x, double y) {
         switch (vt) {
             case truck:

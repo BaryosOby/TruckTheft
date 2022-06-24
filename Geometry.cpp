@@ -64,12 +64,12 @@ Point::Point() {
 }
 
 void Point::print() const {
-    cout << setprecision(2) << "(" << x << ", " << y << ")";
+    cout << fixed << setprecision(2) << "(" << x << ", " << y << ")";
 }
-
+// if in close radius return true
 bool Point::operator==(const Point &rhs) const {
-    if(abs(x - rhs.x) > 0.15) return false;
-    if(abs(y - rhs.y) > 0.15) return false;
+    if(abs(x - rhs.x) > 0.1) return false;
+    if(abs(y - rhs.y) > 0.1) return false;
     //return x == rhs.x && y == rhs.y;
     return true;
 }

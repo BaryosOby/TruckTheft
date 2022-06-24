@@ -7,8 +7,9 @@
 
 class VehicleFactory {
 public:
-    VehicleFactory()= default;
-    shared_ptr<Vehicle> createVehicle(ObjType vt, string& name, double x, double y){
+    VehicleFactory() = default;
+
+    shared_ptr<Vehicle> createVehicle(ObjType vt, string &name, double x, double y) {
         switch (vt) {
             case truck:
                 return make_shared<Truck>(Truck(name, x, y));

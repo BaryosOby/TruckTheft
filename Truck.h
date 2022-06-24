@@ -17,12 +17,12 @@ private:
     queue<pair<double, double>> arrive_depart_q;
 
 public:
-    Truck(string &name, double x, double y) : Vehicle(name,x,y){
+    Truck(string &name, double x, double y) : Vehicle(name, x, y) {
         Vehicle::state = moving_dest;
     }
 
-    void course(double deg) override{} // doing nothing in truck
-    void position(double x, double y) override{} // doing nothing in truck
+    void course(double deg) override {} // doing nothing in truck
+    void position(double x, double y) override {} // doing nothing in truck
 
     const weak_ptr<Warehouse> &getCurrWarehouse() const;
 
@@ -30,10 +30,11 @@ public:
 
     const queue<int> &getCratesQ() const;
 
-    void pushCrates(int crates){
+    void pushCrates(int crates) {
         crates_q.push(crates);
     }
-    void popCrates(){
+
+    void popCrates() {
         crates_q.pop();
     }
 
@@ -43,21 +44,24 @@ public:
 
     const queue<weak_ptr<Warehouse>> &getWarehouseQ() const;
 
-    void pushWarehouse(weak_ptr<Warehouse>& warehouse){
+    void pushWarehouse(weak_ptr<Warehouse> &warehouse) {
         warehouse_q.push(warehouse);
     }
-    void popWarehouse(){
+
+    void popWarehouse() {
         warehouse_q.pop();
     }
 
     const queue<pair<double, double>> &getArriveDepartQ() const;
 
-    void pushArriveDepart(pair<double, double> &p){
+    void pushArriveDepart(pair<double, double> &p) {
         arrive_depart_q.push(p);
     }
-    void popArriveDepart(){
+
+    void popArriveDepart() {
         arrive_depart_q.pop();
     }
+
     void update(double general_time) override;
 
     void broadcast_status() override;

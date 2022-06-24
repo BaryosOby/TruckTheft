@@ -1,6 +1,7 @@
 
 #ifndef CPPAD03_TRACK_BASE_H
 #define CPPAD03_TRACK_BASE_H
+
 #include <vector>
 #include "Warehouse.h"
 
@@ -14,8 +15,9 @@ private:
     Point location;
 public:
 
-    Track_base(double x, double y) :course(0), speed(0), destination(), location(x, y) {}
-    Track_base() :course(0), speed(0), destination(), location() {}
+    Track_base(double x, double y) : course(0), speed(0), destination(), location(x, y) {}
+
+    Track_base() : course(0), speed(0), destination(), location() {}
 
     double getCourse() const {
         return course;
@@ -29,7 +31,7 @@ public:
         course = to_degrees(pv.theta);
     }
 
-    void setCourseByDeg(double deg){
+    void setCourseByDeg(double deg) {
         course = to_normal_directions(deg);
     }
 
@@ -50,7 +52,7 @@ public:
         setCourseByCords(destination.x, destination.y);
     }
 
-    void setDestination(const Point& p){
+    void setDestination(const Point &p) {
         destination = p;
         setCourseByCords(destination.x, destination.y);
     }
@@ -63,13 +65,13 @@ public:
         location.setCord(x, y);
     }
 
-    void drive(double time=1){
+    void drive(double time = 1) {
         double distance = speed * time;
         Polar_vector pv;
         pv.r = distance;
         pv.theta = to_radians(course);
         Cartesian_vector cv(pv);
-        location.setCord(cv.delta_x+location.x, cv.delta_y+location.y);
+        location.setCord(cv.delta_x + location.x, cv.delta_y + location.y);
     }
 
 

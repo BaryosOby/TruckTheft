@@ -1,15 +1,15 @@
 #include "Model.h"
 
-Model::Model(): time(0){
+Model::Model() : time(0) {
     string name = "Frankfurt";
     auto frank = make_shared<Warehouse>(name, 40, 10, 100000);
     objs.push_back(frank);
     warehouses.push_back(frank);
 }
 
-bool Model::findObj(Sim_obj &obj) const{
-    for(const auto& ob : objs){
-        if(ob->getName() == obj.getName()){
+bool Model::findObj(Sim_obj &obj) const {
+    for (const auto &ob : objs) {
+        if (ob->getName() == obj.getName()) {
             return true;
         }
     }
@@ -22,52 +22,52 @@ Model &Model::getInstance() {
 }
 
 void Model::update() {
-    for(const auto& ob : objs){
+    for (const auto &ob : objs) {
         ob->update(time);
     }
     time++;
 }
 
-void Model::pushObj(const shared_ptr<Sim_obj>& obj) {
+void Model::pushObj(const shared_ptr<Sim_obj> &obj) {
 
-    if(findObj(*obj)){
+    if (findObj(*obj)) {
         return;
     }
 
     objs.push_back(obj);
-    if(view.lock() != nullptr){
+    if (view.lock() != nullptr) {
         view.lock()->pushObj(obj);
     }
 
-    if(typeid(*obj) == typeid(Truck)){
+    if (typeid(*obj) == typeid(Truck)) {
         trucks.push_back(dynamic_pointer_cast<Truck>(obj));
     }
 
-    if(typeid(*obj) == typeid(Chopper)){
+    if (typeid(*obj) == typeid(Chopper)) {
         choppers.push_back(dynamic_pointer_cast<Chopper>(obj));
     }
 
-    if(typeid(*obj) == typeid(StateTrooper)){
+    if (typeid(*obj) == typeid(StateTrooper)) {
         auto trop = dynamic_pointer_cast<StateTrooper>(obj);
         troops.push_back(trop);
-        for(auto& w : warehouses){
+        for (auto &w : warehouses) {
             trop->pushWarehouse(w);
         }
     }
 
-    if(typeid(*obj) == typeid(Warehouse)){
+    if (typeid(*obj) == typeid(Warehouse)) {
         warehouses.push_back(dynamic_pointer_cast<Warehouse>(obj));
     }
 }
 
 void Model::attach(shared_ptr<View> &v) {
     view = v;
-    for(const auto& ob : objs){
+    for (const auto &ob : objs) {
         view.lock()->pushObj(ob);
     }
 }
 
-bool Model::findTroop(const Truck& t) const{
+bool Model::findTroop(const Truck &t) const {
     for (const auto &troop : troops) {
         if (t.check_radius(troop.lock()->getLocation(), 0.1)) {
             return true;
@@ -77,8 +77,8 @@ bool Model::findTroop(const Truck& t) const{
 }
 
 
-void Model::broadcast_status() const{
-    for(const auto& ob : objs){
+void Model::broadcast_status() const {
+    for (const auto &ob : objs) {
         ob->broadcast_status();
     }
 }
@@ -109,10 +109,9 @@ void Model::attackByName(const string &chop_name, const string &truck_name) {
 }
 
 
-
-shared_ptr<Vehicle> Model:: getVehicleByName(const string& name){
-    for(const auto& ob : objs){
-        if(ob->getName() == name){
+shared_ptr<Vehicle> Model::getVehicleByName(const string &name) {
+    for (const auto &ob : objs) {
+        if (ob->getName() == name) {
             return dynamic_pointer_cast<Vehicle>(ob);
         }
     }
@@ -121,8 +120,8 @@ shared_ptr<Vehicle> Model:: getVehicleByName(const string& name){
 
 
 weak_ptr<Warehouse> Model::getWareByName(const string &name) { //TODO combine with getV
-    for(const auto& ob : warehouses){
-        if(ob.lock()->getName() == name){
+    for (const auto &ob : warehouses) {
+        if (ob.lock()->getName() == name) {
             return ob;
         }
     }

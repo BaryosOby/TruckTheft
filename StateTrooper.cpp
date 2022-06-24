@@ -30,32 +30,30 @@ void StateTrooper::getClosestWarehouse() {
         }
         count++;
     }
-    if(min_dist == UINT16_MAX){
+    if (min_dist == UINT16_MAX) {
         tb.setDestination(init_location);
-    }
-    else{
+    } else {
         tb.setDestination(curr_min.lock()->getInitLocation());
     }
 
 }
 
 void StateTrooper::update(double general_time) {
-    if(state == moving_dest){
+    if (state == moving_dest) {
         double time_to_arrive;
         double d = distance(tb.getLocation(), tb.getDestination());
         time_to_arrive = d / tb.getSpeed();
-        if(time_to_arrive <= 1){
+        if (time_to_arrive <= 1) {
             drive(time_to_arrive);
-            if(warehouses[warehouse_idx].first.lock()->getInitLocation() == tb.getDestination()){
+            if (warehouses[warehouse_idx].first.lock()->getInitLocation() == tb.getDestination()) {
                 warehouses[warehouse_idx].second = true;
             }
             getClosestWarehouse();
-        }
-        else{
+        } else {
             drive();
         }
     }
-    if(state == moving_course){
+    if (state == moving_course) {
         drive();
     }
 }
@@ -63,11 +61,10 @@ void StateTrooper::update(double general_time) {
 void StateTrooper::broadcast_status() {
     cout << "State Trooper " << name << " at ";
     tb.getLocation().print();
-    if(state == moving_dest){
+    if (state == moving_dest) {
         cout << ", Heading to " << warehouses[warehouse_idx].first.lock()->getName();
-    }
-    else if(state == moving_course){
-        cout << ", Heading on course " << (int)tb.getCourse() << " degrees";
+    } else if (state == moving_course) {
+        cout << ", Heading on course " << (int) tb.getCourse() << " degrees";
     }
     cout << ", speed " << setprecision(2) << tb.getSpeed() * 100 << " km/h" << endl;
 }

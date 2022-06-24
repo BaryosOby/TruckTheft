@@ -5,7 +5,7 @@ double Chopper::getAttackRadius() const {
 }
 
 void Chopper::setAttackRadius(double attackRadius) {
-    if(attack_radius + attackRadius >= MIN_R && attack_radius + attackRadius <= MAX_R ){
+    if (attack_radius + attackRadius >= MIN_R && attack_radius + attackRadius <= MAX_R) {
         attack_radius += attackRadius;
     }
 }
@@ -15,7 +15,7 @@ Chopper::Chopper(string &name, double x, double y) : Vehicle(name, x, y), attack
 
 
 void Chopper::update(double general_time) {
-    if(state == moving_dest || state == moving_course){
+    if (state == moving_dest || state == moving_course) {
         drive();
     }
 }
@@ -23,8 +23,8 @@ void Chopper::update(double general_time) {
 void Chopper::broadcast_status() {
     cout << "Chopper " << name << " at ";
     tb.getLocation().print();
-    if(state == moving_dest || state == moving_course){
-        cout << ", Heading on course " << (int)tb.getCourse() << " degrees";
+    if (state == moving_dest || state == moving_course) {
+        cout << ", Heading on course " << (int) tb.getCourse() << " degrees";
         cout << ", speed " << setprecision(2) << tb.getSpeed() * 100 << " km/h" << endl;
     }
 }

@@ -36,10 +36,9 @@ void View::objects_in_range() {
     Point check_range;
     string name;
     for (const auto &obj: objects) {
-        if(typeid(*(obj.lock())) == typeid(Warehouse)){
+        if (typeid(*(obj.lock())) == typeid(Warehouse)) {
             check_range = checkRange(obj.lock()->getInitLocation());
-        }
-        else{
+        } else {
             check_range = checkRange(dynamic_pointer_cast<Vehicle>(obj.lock())->getLocation());
         }
         if (check_range.x != UINT32_MAX && check_range.y != UINT32_MAX) {

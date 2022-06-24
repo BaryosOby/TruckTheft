@@ -1,45 +1,50 @@
 #ifndef CPPAD03_VEHICLE_H
 #define CPPAD03_VEHICLE_H
+
 #include "Track_base.h"
 
-enum State {stopped, parked, off_road, moving_dest, moving_course};
+enum State {
+    stopped, parked, off_road, moving_dest, moving_course
+};
 
-class Vehicle : public Sim_obj{
+class Vehicle : public Sim_obj {
 protected:
     Track_base tb;
     State state;
 public:
-    Vehicle(string& name, double x, double y):Sim_obj(name, x, y), tb(x, y), state(stopped){}
+    Vehicle(string &name, double x, double y) : Sim_obj(name, x, y), tb(x, y), state(stopped) {}
 
-    Point getLocation() const{
+    Point getLocation() const {
         return tb.getLocation();
     }
 
-    virtual void course(double deg){
+    virtual void course(double deg) {
         state = moving_course;
         tb.setCourseByDeg(deg);
     }
-    virtual void position(double  x, double y){
+
+    virtual void position(double x, double y) {
         state = moving_dest;
         tb.setDestination(x, y);
     }
 
-    virtual void position(Point p){
+    virtual void position(Point p) {
         state = moving_dest;
         tb.setDestination(p);
     }
 
     virtual void update(double general_time) override = 0;
+
     virtual void broadcast_status() = 0;
 
-    void drive(double time=1){
+    void drive(double time = 1) {
         tb.drive(time);
     }
 
-    bool check_radius(Point p, double radius) const{
+    bool check_radius(Point p, double radius) const {
         double delta_x = abs(tb.getLocation().x - p.x);
         double delta_y = abs(tb.getLocation().y - p.y);
-        if(delta_x > radius || delta_y > radius){
+        if (delta_x > radius || delta_y > radius) {
             return false;
         }
         return true;
@@ -53,7 +58,7 @@ public:
         Vehicle::state = st;
     }
 
-    void stop() override{
+    void stop() override {
         state = stopped;
     }
 

@@ -19,30 +19,33 @@ const queue<pair<double, double>> &Truck::getArriveDepartQ() const {
 
 
 void Truck::update(double general_time) {
+    double prev_depart = next_depart;
     // track is done
-    if(warehouse_q.empty()){
+    if (warehouse_q.empty()) {
         state = stopped;
     }
 
     // arriving to position.
-    if(state == moving_dest && tb.getLocation() == tb.getDestination()){
+    if (state == moving_dest && tb.getLocation() == tb.getDestination()) {
         state = parked;
         unload();
-        setNextWarehouse();
         setSpeedByDriveTime();
+        setNextWarehouse();
         tb.setDestination(next_warehouse.lock()->getInitLocation());
     }
     double time = 1;
     // going to the next warehouse.
-    if(state == parked && general_time - next_depart >= 0){
-        time = general_time - next_depart;
+    if (state == parked &&  prev_depart - general_time >= 0) { // change here
+        time = general_time + 1 - prev_depart;
         state = moving_dest;
     }
-    if(state == moving_dest){
-        if(general_time == 0){
+    if (state == moving_dest) {
+        if (general_time == 0) {
             double dist = distance(tb.getLocation(), next_warehouse.lock()->getInitLocation());
             double t = next_arrive;
-            tb.setSpeed(dist / t);        }
+            tb.setSpeed(dist / t);
+        }
+        if(next_arrive - general_time >= 0 && next_arrive - general_time < 1) time = (1 - abs(general_time - next_arrive)); //added here
         drive(time);
     }
 
@@ -52,7 +55,7 @@ void Truck::broadcast_status() {
     // Truck Godzilla at (37.14, 10.00), Heading to Lille, Crates: 105
     cout << "Truck " << name << " at ";
     tb.getLocation().print();
-    if(state == moving_dest){
+    if (state == moving_dest) {
         cout << ", Heading to " << next_warehouse.lock()->getName();
     }
     cout << ", Crates: " << crates_num << endl;

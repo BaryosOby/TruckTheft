@@ -1,5 +1,6 @@
 #ifndef CPPAD03_SIM_OBJ_H
 #define CPPAD03_SIM_OBJ_H
+
 #include <iostream>
 #include <vector>
 #include "Geometry.h"
@@ -8,18 +9,20 @@
 
 using namespace std;
 
-enum ObjType {truck, chopper, trooper, warehouse};
+enum ObjType {
+    truck, chopper, trooper, warehouse
+};
 
 class Sim_obj {
 protected:
     Point init_location;
     string name;
 public:
-    const Point &getInitLocation() const{return init_location;};
+    const Point &getInitLocation() const { return init_location; };
 
-    void setLocation(double x, double y){init_location.setCord(x, y); };
+    void setLocation(double x, double y) { init_location.setCord(x, y); };
 
-    const string &getName() const{ return name;};
+    const string &getName() const { return name; };
 
     void setName(const string &rhs) { this->name = rhs; };
 
@@ -27,12 +30,11 @@ public:
 
     virtual void broadcast_status() = 0;
 
-    Sim_obj(string& name, double x, double y): init_location(x, y), name(name){}
+    Sim_obj(string &name, double x, double y) : init_location(x, y), name(name) {}
 
     virtual void stop() = 0;
-    
-};
 
+};
 
 
 #endif
